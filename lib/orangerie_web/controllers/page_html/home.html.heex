@@ -1,1 +1,525 @@
-<Layouts.app flash={@flash} />
+<Layouts.app flash={@flash}>
+  <style phx-no-curly-interpolation>
+    @media (prefers-reduced-motion: no-preference) {
+      html {
+        scroll-behavior: smooth;
+      }
+      .o-rise {
+        opacity: 0;
+        transform: translateY(18px);
+        animation: o-rise 0.9s cubic-bezier(0.2, 0.55, 0.2, 1) forwards;
+      }
+      .o-d1 { animation-delay: 0.1s; }
+      .o-d2 { animation-delay: 0.25s; }
+      .o-d3 { animation-delay: 0.4s; }
+      .o-d4 { animation-delay: 0.55s; }
+      @keyframes o-rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @supports (animation-timeline: view()) {
+        .o-window-reveal {
+          opacity: 0;
+          transform: translateY(28px);
+          animation: o-rise linear forwards;
+          animation-timeline: view();
+          animation-range: entry 5% entry 45%;
+        }
+      }
+    }
+  </style>
+
+  <main>
+    <!-- ========== HERO ========== -->
+    <section class="relative flex min-h-[calc(100svh-3.5rem)] flex-col items-center justify-center overflow-hidden px-6 py-24 text-center">
+      <img
+        src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge4.jpg"
+        alt="Der grosse Saal der Orangerie: Kronleuchter, Bogenfenster und die beleuchtete Bar"
+        class="absolute inset-0 size-full object-cover"
+      />
+      <!-- Mahogany scrim for legibility (always night, hence the local dark theme),
+           then a fade into the page surface -->
+      <div
+        data-theme="dark"
+        class="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_25%,color-mix(in_oklab,var(--color-base-100)_45%,transparent),color-mix(in_oklab,var(--color-base-100)_85%,transparent)_80%)]"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="absolute inset-x-0 bottom-0 h-44 bg-linear-to-t from-base-100 to-transparent"
+        aria-hidden="true"
+      >
+      </div>
+      <!-- Nested orangery arches, fading toward the ground -->
+      <svg
+        data-theme="dark"
+        class="pointer-events-none absolute bottom-0 left-1/2 h-[88%] w-auto -translate-x-1/2 text-gold [mask-image:linear-gradient(to_bottom,black_25%,transparent_94%)]"
+        viewBox="0 0 600 700"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M100 700 V300 a200 200 0 0 1 400 0 V700"
+          stroke="currentColor"
+          stroke-opacity="0.35"
+        />
+        <path
+          d="M140 700 V300 a160 160 0 0 1 320 0 V700"
+          stroke="currentColor"
+          stroke-opacity="0.2"
+        />
+        <path
+          d="M180 700 V300 a120 120 0 0 1 240 0 V700"
+          stroke="currentColor"
+          stroke-opacity="0.12"
+        />
+      </svg>
+
+      <div data-theme="dark" class="relative max-w-3xl text-base-content">
+        <p class="o-rise text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
+          Restaurant · Bar · Lifestyle-Club — Wängi, Thurgau
+        </p>
+
+        <h1 class="o-rise o-d1 mt-8 font-display text-5xl leading-[1.08] sm:text-6xl md:text-7xl">
+          Der <span class="font-script text-[1.06em] font-normal text-gold">schönste</span>
+          Ort,<br /> über den man nicht spricht.
+        </h1>
+
+        <p class="o-rise o-d2 mx-auto mt-8 max-w-xl text-lg leading-relaxed text-muted">
+          Fine Dining, eine lange Bar, eine Bühne mit Catwalk, ein Garten mit offenem
+          Feuer — und ein Spa für später. Die Orangerie ist ein Club für Paare und
+          ausgewählte Gäste. Diskret, respektvoll, mit Stil.
+        </p>
+
+        <div class="o-rise o-d3 mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#kontakt"
+            class="rounded-full bg-primary px-8 py-3 text-[15px] tracking-wide text-primary-content shadow-lg shadow-primary/40 transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          >
+            Tisch reservieren
+          </a>
+          <a
+            href="#haus"
+            class="rounded-full border border-gold/50 px-8 py-3 text-[15px] tracking-wide transition-colors hover:border-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          >
+            Das Haus entdecken
+          </a>
+        </div>
+
+        <p class="o-rise o-d4 mt-8 text-xs tracking-[0.2em] text-muted/80 uppercase">
+          Zutritt ab 18 Jahren · Elegante Abendgarderobe
+        </p>
+      </div>
+    </section>
+    <!-- ========== END HERO ========== -->
+
+    <!-- ========== DAS HAUS ========== -->
+    <section id="haus" class="scroll-mt-24 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="max-w-2xl">
+          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Das Haus</p>
+          <h2 class="mt-4 font-display text-4xl md:text-5xl">Fünf Räume. Ein Abend.</h2>
+          <p class="mt-5 text-lg leading-relaxed text-muted">
+            Die alte Orangerie hat ihre Bogenfenster behalten. Was dahinter liegt,
+            sieht man von aussen nicht.
+          </p>
+        </div>
+
+        <div class="-mx-6 mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 xl:mx-0 xl:grid xl:grid-cols-5 xl:gap-6 xl:overflow-visible xl:px-0 xl:pb-0">
+          <article class="o-window-reveal group w-[70%] shrink-0 snap-center sm:w-[45%] md:w-[30%] xl:w-auto">
+            <div
+              data-theme="dark"
+              class="relative aspect-[3/5] overflow-hidden rounded-t-full rounded-b-2xl border border-gold/30 bg-base-100 transition-colors duration-500 group-hover:border-gold/70"
+            >
+              <img
+                src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge3.jpg"
+                alt="Séparée mit gestreiften Louis-XV-Sofas, Kerzenlicht und Spiegel an oxblutroter Wand"
+                loading="lazy"
+                class="absolute inset-0 size-full object-cover object-[65%_50%] motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0 bg-linear-to-t from-base-100/90 via-base-100/10 to-base-100/35"
+                aria-hidden="true"
+              >
+              </div>
+              <div
+                class="pointer-events-none absolute inset-2 rounded-t-full rounded-b-xl border border-base-content/10"
+                aria-hidden="true"
+              >
+              </div>
+              <div class="absolute inset-x-0 bottom-0 p-5 text-center">
+                <h3 class="font-display text-2xl text-base-content">Das Restaurant</h3>
+              </div>
+            </div>
+            <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
+              Mehrgängige Küche auf einem Niveau, das hier niemand erwartet — bis zum ersten Gang.
+            </p>
+          </article>
+
+          <article class="o-window-reveal group w-[70%] shrink-0 snap-center sm:w-[45%] md:w-[30%] xl:w-auto">
+            <div
+              data-theme="dark"
+              class="relative aspect-[3/5] overflow-hidden rounded-t-full rounded-b-2xl border border-gold/30 bg-base-100 transition-colors duration-500 group-hover:border-gold/70"
+            >
+              <img
+                src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge2.jpg"
+                alt="Die beleuchtete Bar mit Barhockern, darüber die Galerie mit schmiedeeisernem Geländer"
+                loading="lazy"
+                class="absolute inset-0 size-full object-cover object-[38%_50%] motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0 bg-linear-to-t from-base-100/90 via-base-100/10 to-base-100/35"
+                aria-hidden="true"
+              >
+              </div>
+              <div
+                class="pointer-events-none absolute inset-2 rounded-t-full rounded-b-xl border border-base-content/10"
+                aria-hidden="true"
+              >
+              </div>
+              <div class="absolute inset-x-0 bottom-0 p-5 text-center">
+                <h3 class="font-display text-2xl text-base-content">Die Bar</h3>
+              </div>
+            </div>
+            <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
+              Die lange Bar im Herzen des Hauses. Hier beginnt jeder Abend.
+            </p>
+          </article>
+
+          <article class="o-window-reveal group w-[70%] shrink-0 snap-center sm:w-[45%] md:w-[30%] xl:w-auto">
+            <div
+              data-theme="dark"
+              class="relative aspect-[3/5] overflow-hidden rounded-t-full rounded-b-2xl border border-gold/30 bg-base-100 transition-colors duration-500 group-hover:border-gold/70"
+            >
+              <img
+                src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge5.jpg"
+                alt="Der grosse Salon mit Ledersofas, Teppichen und Marmortischen unter der Galerie"
+                loading="lazy"
+                class="absolute inset-0 size-full object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0 bg-linear-to-t from-base-100/90 via-base-100/10 to-base-100/35"
+                aria-hidden="true"
+              >
+              </div>
+              <div
+                class="pointer-events-none absolute inset-2 rounded-t-full rounded-b-xl border border-base-content/10"
+                aria-hidden="true"
+              >
+              </div>
+              <div class="absolute inset-x-0 bottom-0 p-5 text-center">
+                <h3 class="font-display text-2xl text-base-content">Der Salon</h3>
+              </div>
+            </div>
+            <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
+              Ledersofas, Teppiche, Kerzenlicht — das Wohnzimmer des Hauses.
+            </p>
+          </article>
+
+          <article class="o-window-reveal group w-[70%] shrink-0 snap-center sm:w-[45%] md:w-[30%] xl:w-auto">
+            <div
+              data-theme="dark"
+              class="relative aspect-[3/5] overflow-hidden rounded-t-full rounded-b-2xl border border-gold/30 bg-base-100 transition-colors duration-500 group-hover:border-gold/70"
+            >
+              <div
+                class="absolute inset-0 opacity-70 transition-opacity duration-700 group-hover:opacity-100 bg-[radial-gradient(70%_45%_at_50%_102%,color-mix(in_oklab,var(--color-primary)_50%,transparent),transparent_72%),radial-gradient(100%_45%_at_50%_-5%,color-mix(in_oklab,var(--color-leaf)_25%,transparent),transparent_70%)]"
+                aria-hidden="true"
+              >
+              </div>
+              <div
+                class="pointer-events-none absolute inset-2 rounded-t-full rounded-b-xl border border-base-content/10"
+                aria-hidden="true"
+              >
+              </div>
+              <div class="absolute inset-x-0 bottom-0 p-5 text-center">
+                <h3 class="font-display text-2xl text-base-content">Der Garten</h3>
+              </div>
+            </div>
+            <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
+              Offenes Feuer in der Gartenhütte, dazu der Himmel über dem Thurgau.
+            </p>
+          </article>
+
+          <article class="o-window-reveal group w-[70%] shrink-0 snap-center sm:w-[45%] md:w-[30%] xl:w-auto">
+            <div
+              data-theme="dark"
+              class="relative aspect-[3/5] overflow-hidden rounded-t-full rounded-b-2xl border border-gold/30 bg-base-100 transition-colors duration-500 group-hover:border-gold/70"
+            >
+              <div
+                class="absolute inset-0 opacity-70 transition-opacity duration-700 group-hover:opacity-100 bg-[radial-gradient(90%_55%_at_50%_60%,color-mix(in_oklab,var(--color-muted)_35%,transparent),transparent_75%),radial-gradient(60%_30%_at_50%_15%,color-mix(in_oklab,var(--color-base-content)_12%,transparent),transparent_70%)]"
+                aria-hidden="true"
+              >
+              </div>
+              <div
+                class="pointer-events-none absolute inset-2 rounded-t-full rounded-b-xl border border-base-content/10"
+                aria-hidden="true"
+              >
+              </div>
+              <div class="absolute inset-x-0 bottom-0 p-5 text-center">
+                <h3 class="font-display text-2xl text-base-content">Das Spa</h3>
+              </div>
+            </div>
+            <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
+              Sauna, Whirlpool und stille Ecken für später.
+            </p>
+          </article>
+        </div>
+
+        <p class="mt-10 text-center text-sm italic text-muted">
+          Garten und Spa fotografieren wir nicht — Diskretion beginnt bei uns selbst.
+        </p>
+      </div>
+    </section>
+    <!-- ========== END DAS HAUS ========== -->
+
+    <!-- ========== EIN ABEND ========== -->
+    <section id="abend" class="scroll-mt-24 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Ein Abend</p>
+          <h2 class="mt-4 font-display text-4xl md:text-5xl">So vergehen hier die Stunden.</h2>
+        </div>
+
+        <ol class="mx-auto mt-14 max-w-2xl">
+          <li class="flex gap-8 sm:gap-12">
+            <div class="w-16 shrink-0 pt-0.5 text-right font-display text-2xl text-gold sm:w-20">
+              18:00
+            </div>
+            <div class="relative border-s border-gold/25 ps-8 pb-12">
+              <span
+                class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
+                aria-hidden="true"
+              ></span>
+              <h3 class="font-display text-2xl">Ankommen</h3>
+              <p class="mt-1 leading-relaxed text-muted">
+                Ein erstes Glas an der Bar. Bekannte Gesichter — und neue.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-8 sm:gap-12">
+            <div class="w-16 shrink-0 pt-0.5 text-right font-display text-2xl text-gold sm:w-20">
+              19:30
+            </div>
+            <div class="relative border-s border-gold/25 ps-8 pb-12">
+              <span
+                class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
+                aria-hidden="true"
+              ></span>
+              <h3 class="font-display text-2xl">Dinner</h3>
+              <p class="mt-1 leading-relaxed text-muted">
+                Mehrere Gänge bei gedämpftem Licht. Niemand schaut auf die Uhr.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-8 sm:gap-12">
+            <div class="w-16 shrink-0 pt-0.5 text-right font-display text-2xl text-gold sm:w-20">
+              22:00
+            </div>
+            <div class="relative border-s border-gold/25 ps-8 pb-12">
+              <span
+                class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
+                aria-hidden="true"
+              ></span>
+              <h3 class="font-display text-2xl">Die Show</h3>
+              <p class="mt-1 leading-relaxed text-muted">
+                Die Musik wird lauter, das Licht wärmer. Die Bühne gehört dem Abend.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-8 sm:gap-12">
+            <div class="w-16 shrink-0 pt-0.5 text-right font-display text-2xl text-gold sm:w-20">
+              00:00
+            </div>
+            <div class="relative border-s border-gold/25 ps-8 pb-12">
+              <span
+                class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
+                aria-hidden="true"
+              ></span>
+              <h3 class="font-display text-2xl">Der Garten</h3>
+              <p class="mt-1 leading-relaxed text-muted">
+                Feuer, Gespräche unter freiem Himmel — und was daraus wird.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-8 sm:gap-12">
+            <div class="w-16 shrink-0 pt-0.5 text-right font-display text-2xl text-gold sm:w-20">
+              04:00
+            </div>
+            <div class="relative ps-8 pb-2">
+              <span
+                class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
+                aria-hidden="true"
+              ></span>
+              <h3 class="font-display text-2xl">Nach Hause</h3>
+              <p class="mt-1 leading-relaxed text-muted">Was bleibt, bleibt hier.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <!-- ========== END EIN ABEND ========== -->
+
+    <!-- ========== ETIKETTE ========== -->
+    <section id="etikette" class="scroll-mt-24 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="max-w-2xl">
+          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Etikette</p>
+          <h2 class="mt-4 font-display text-4xl md:text-5xl">Drei Regeln. Keine Ausnahmen.</h2>
+        </div>
+
+        <div class="mt-14 grid gap-12 md:grid-cols-3 md:gap-0 md:divide-x md:divide-base-300">
+          <div class="md:pe-10">
+            <div class="mb-6 h-px w-10 bg-gold/60" aria-hidden="true"></div>
+            <h3 class="font-display text-2xl">Diskretion</h3>
+            <p class="mt-3 leading-relaxed text-muted">
+              Keine Fotos, keine Nachnamen. Was in der Orangerie geschieht,
+              bleibt in der Orangerie.
+            </p>
+          </div>
+          <div class="md:px-10">
+            <div class="mb-6 h-px w-10 bg-gold/60" aria-hidden="true"></div>
+            <h3 class="font-display text-2xl">Respekt</h3>
+            <p class="mt-3 leading-relaxed text-muted">
+              Nähe entsteht, wenn beide sie wollen. Ein Nein ist ein Nein —
+              ohne Diskussion.
+            </p>
+          </div>
+          <div class="md:ps-10">
+            <div class="mb-6 h-px w-10 bg-gold/60" aria-hidden="true"></div>
+            <h3 class="font-display text-2xl">Stil</h3>
+            <p class="mt-3 leading-relaxed text-muted">
+              Elegante Garderobe, gepflegte Umgangsformen. Wer sich Mühe gibt,
+              gehört dazu.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ========== END ETIKETTE ========== -->
+
+    <!-- ========== ZEITEN & ANREISE ========== -->
+    <section id="kontakt" class="scroll-mt-24 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="rounded-3xl border border-base-300 bg-base-100/60 p-8 backdrop-blur md:p-14">
+          <div class="grid gap-12 md:grid-cols-2 md:gap-16">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Besuch</p>
+              <h2 class="mt-4 font-display text-3xl md:text-4xl">Öffnungszeiten</h2>
+              <dl class="mt-8">
+                <div class="flex items-baseline justify-between gap-4 border-b border-base-300 py-3">
+                  <dt>Donnerstag</dt>
+                  <dd class="text-muted">17:00 – 01:00</dd>
+                </div>
+                <div class="flex items-baseline justify-between gap-4 border-b border-base-300 py-3">
+                  <dt>Freitag</dt>
+                  <dd class="text-muted">19:00 – 04:00</dd>
+                </div>
+                <div class="flex items-baseline justify-between gap-4 border-b border-base-300 py-3">
+                  <dt>Samstag</dt>
+                  <dd class="text-muted">19:00 – 04:00</dd>
+                </div>
+                <div class="flex items-baseline justify-between gap-4 border-b border-base-300 py-3">
+                  <dt>Sonntag</dt>
+                  <dd class="text-muted">14:00 – 23:00</dd>
+                </div>
+                <div class="flex items-baseline justify-between gap-4 py-3">
+                  <dt>Montag – Mittwoch</dt>
+                  <dd class="text-muted">Geschlossen</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
+                Anreise
+              </p>
+              <h2 class="mt-4 font-display text-3xl md:text-4xl">Mitten im Thurgau</h2>
+              <address class="mt-8 not-italic leading-relaxed">
+                Orangerie le Club AG<br /> Wilerstrasse 55<br /> 9545 Wängi
+              </address>
+              <p class="mt-6 leading-relaxed text-muted">
+                Zwischen Winterthur und Wil — gut erreichbar von Zürich,
+                St. Gallen und der ganzen Ostschweiz. Parkplätze direkt am Haus.
+              </p>
+              <p class="mt-6 text-sm leading-relaxed text-muted">
+                Paare und einzelne Damen sind an allen Abenden willkommen,
+                einzelne Herren an ausgewählten — Details im Eventkalender.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ========== END ZEITEN & ANREISE ========== -->
+
+    <!-- ========== CTA ========== -->
+    <section class="px-6 pb-24 pt-8 md:pb-32">
+      <div
+        data-theme="dark"
+        class="mx-auto max-w-3xl rounded-t-[14rem] rounded-b-3xl border border-gold/40 bg-base-200 px-8 pb-16 pt-24 text-center text-base-content md:px-20 md:pb-20 md:pt-32"
+      >
+        <p class="font-script text-3xl text-gold">Der erste Abend</p>
+        <h2 class="mt-4 font-display text-4xl md:text-5xl">
+          Neugier ist der beste Anfang.
+        </h2>
+        <p class="mx-auto mt-6 max-w-md leading-relaxed text-muted">
+          Ein Tisch im Restaurant ist der schönste Weg, das Haus
+          kennenzulernen — unverbindlich und diskret.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#kontakt"
+            class="rounded-full bg-primary px-8 py-3 text-[15px] tracking-wide text-primary-content transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          >
+            Tisch reservieren
+          </a>
+          <a
+            href="#"
+            class="rounded-full border border-gold/50 px-8 py-3 text-[15px] tracking-wide transition-colors hover:border-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+          >
+            Mitglied werden
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- ========== END CTA ========== -->
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="border-t border-base-300 py-14">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-10 md:grid-cols-3">
+        <div>
+          <p class="font-script text-3xl text-primary">Orangerie</p>
+          <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted">
+            Restaurant, Bar & Lifestyle-Club für Paare — seit jeher diskret.
+          </p>
+        </div>
+        <div>
+          <p class="mb-4 text-xs uppercase tracking-[0.3em] text-muted">Adresse</p>
+          <address class="text-sm not-italic leading-relaxed">
+            Orangerie le Club AG<br /> Wilerstrasse 55<br /> 9545 Wängi
+          </address>
+        </div>
+        <div>
+          <p class="mb-4 text-xs uppercase tracking-[0.3em] text-muted">Öffnungszeiten</p>
+          <p class="text-sm leading-relaxed">
+            Donnerstag 17 – 01 Uhr<br /> Freitag & Samstag 19 – 04 Uhr<br /> Sonntag 14 – 23 Uhr
+          </p>
+        </div>
+      </div>
+      <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-base-300 pt-6 text-xs text-muted">
+        <p>© 2026 Orangerie le Club AG</p>
+        <div class="flex flex-wrap gap-x-6 gap-y-2">
+          <a href="#" class="transition-colors hover:text-primary">Impressum</a>
+          <a href="#" class="transition-colors hover:text-primary">Datenschutz</a>
+          <a href="#" class="transition-colors hover:text-primary">AGB</a>
+          <span>Zutritt ab 18 Jahren</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- ========== END FOOTER ========== -->
+</Layouts.app>

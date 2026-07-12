@@ -37,6 +37,8 @@ defmodule OrangerieWeb.Layouts do
     ~H"""
     <OrangerieWeb.Components.PrelineComponents.header />
 
+    {render_slot(@inner_block)}
+
     <.flash_group flash={@flash} />
     """
   end

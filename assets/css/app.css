@@ -17,22 +17,23 @@
    The heroicons installation itself is managed by your mix.exs */
 @plugin "../vendor/heroicons";
 
-/* Romantic "Orangerie" design tokens — a sunlit conservatory: blush light,
-   dusty rose, garnet ink, antique gold and citrus-leaf green. These back the
-   `base-*` / `primary` (and new `muted`/`gold`/`leaf`) utility colors used
-   across the app. Light values are the defaults; the dark "night garden"
-   values are applied via [data-theme="dark"] below, so any `bg-base-200`,
+/* "Orangerie" design tokens, drawn from the club's own photographs: oxblood
+   and mahogany walls, candlelight amber, dark leather, gilded details. These
+   back the `base-*` / `primary` (and `muted`/`gold`/`leaf`) utility colors
+   used across the app. Light values ("afternoon salon" — warm parchment with
+   mahogany ink) are the defaults; the dark "candlelit salon" values are
+   applied via [data-theme="dark"] below, so any `bg-base-200`,
    `text-primary`, etc. adapts automatically to the theme. */
 @theme {
-  --color-base-100: #fdf6f4; /* page + header surface — pale warm blush */
-  --color-base-200: #f8e9e5; /* raised surfaces, dropdown menus */
-  --color-base-300: #ecd3ce; /* hairlines, borders, dividers */
-  --color-base-content: #4a1f2b; /* deep garnet ink — primary text */
-  --color-primary: #b75c6c; /* dusty romantic rose — links & accents */
-  --color-primary-content: #fff7f5; /* text on primary */
-  --color-muted: #9a6b72; /* secondary / muted mauve text */
-  --color-gold: #c39a4e; /* antique gold — fine accents */
-  --color-leaf: #7e8c5a; /* citrus-leaf sage — botanical accent */
+  --color-base-100: #f8efe4; /* page + header surface — warm parchment */
+  --color-base-200: #f1e1cb; /* raised surfaces, dropdown menus */
+  --color-base-300: #e0c5a4; /* hairlines, borders, dividers */
+  --color-base-content: #2b1207; /* rich mahogany ink — primary text */
+  --color-primary: #a8481c; /* burnt chocolate ember — links & accents */
+  --color-primary-content: #fdf4e8; /* text on primary */
+  --color-muted: #8a6248; /* secondary / muted umber text */
+  --color-gold: #b07f3a; /* amber gold — fine accents */
+  --color-leaf: #75814f; /* potted-palm green — botanical accent */
 
   /* Romantic type system: a script wordmark, a high-contrast display serif,
      and a warm book serif for body/UI. Faces are loaded in root.html.heex. */
@@ -80,15 +81,15 @@ h4 {
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --color-base-100: #2a171e; /* night-garden plum */
-  --color-base-200: #34202a;
-  --color-base-300: #4a2f39;
-  --color-base-content: #f3dcde;
-  --color-primary: #e0919c;
-  --color-primary-content: #2a171e;
-  --color-muted: #c79ba1;
-  --color-gold: #d8b061;
-  --color-leaf: #a4b27e;
+  --color-base-100: #260d06; /* rich mahogany — the photographs' world */
+  --color-base-200: #401706;
+  --color-base-300: #5c2e18;
+  --color-base-content: #f6e3cf; /* candlelight cream */
+  --color-primary: #d46c28; /* chocolate ember */
+  --color-primary-content: #260d06;
+  --color-muted: #c59d7f;
+  --color-gold: #d9a457;
+  --color-leaf: #96a066;
 }
 
 /* Add variants based on LiveView classes */
