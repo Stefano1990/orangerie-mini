@@ -25,6 +25,11 @@ import {LiveSocket} from "phoenix_live_view"
 import {hooks as colocatedHooks} from "phoenix-colocated/orangerie"
 import topbar from "../vendor/topbar"
 
+// Preline UI — vendored interactive component library (assets/vendor/preline.js).
+// Importing it for its side effects registers `window.HSStaticMethods`, which we
+// use below to (re)initialize Preline components.
+import "../vendor/preline.js"
+
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
@@ -36,6 +41,14 @@ const liveSocket = new LiveSocket("/live", Socket, {
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
 window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
 window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
+
+// (Re)initialize Preline components on first load and after each LiveView
+// navigation. autoInit() is idempotent — it skips already-initialized nodes.
+// For content added by live updates without a page transition (e.g. streams),
+// initialize per-hook with `window.HSStaticMethods.autoInit([...])` instead.
+const initPreline = () => window.HSStaticMethods?.autoInit()
+document.addEventListener("DOMContentLoaded", initPreline)
+window.addEventListener("phx:page-loading-stop", initPreline)
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()
