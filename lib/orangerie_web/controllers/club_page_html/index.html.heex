@@ -1,0 +1,16 @@
+<Layouts.app flash={@flash}>
+  <main class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div class="max-w-2xl">
+      <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Das Haus</p>
+      <h1 class="mt-4 font-display text-4xl md:text-5xl">Ein Rundgang.</h1>
+      <p class="mt-5 text-lg leading-relaxed text-muted">
+        Die alte Orangerie hat ihre Bogenfenster behalten. Was dahinter liegt,
+        zeigen wir hier — Raum für Raum.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      <.page_card :for={page <- @pages} page={page} />
+    </div>
+  </main>
+</Layouts.app>

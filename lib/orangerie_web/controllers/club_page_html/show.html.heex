@@ -1,0 +1,103 @@
+<Layouts.app flash={@flash}>
+  <main class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <nav class="text-sm text-muted" aria-label="Breadcrumb">
+      <a
+        href={~p"/haus"}
+        class="transition-colors hover:text-primary focus:text-primary focus:outline-hidden"
+      >
+        Das Haus
+      </a>
+      <span aria-hidden="true"> / </span>
+      <span class="text-base-content">{@page.title}</span>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="mt-10 grid items-center gap-12 md:grid-cols-2 lg:gap-16">
+      <.arch_image image={@page.image} alt={@page.image_alt} />
+
+      <div>
+        <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Das Haus</p>
+        <h1 class="mt-4 font-display text-4xl leading-[1.1] md:text-5xl">{@page.title}</h1>
+        <p class="mt-4 font-script text-3xl text-gold">{@page.tagline}</p>
+        <p class="mt-8 max-w-xl text-lg leading-relaxed text-muted">{@page.intro}</p>
+      </div>
+    </section>
+    <!-- ========== END HERO ========== -->
+
+    <!-- ========== ABSCHNITTE ========== -->
+    <section
+      :for={{section, index} <- Enum.with_index(@page.sections)}
+      class="grid items-center gap-10 pt-20 md:grid-cols-2 md:pt-28 lg:gap-16"
+    >
+      <figure class={[
+        "overflow-hidden rounded-2xl border border-base-300",
+        rem(index, 2) == 1 && "md:order-last"
+      ]}>
+        <img
+          src={section.image}
+          alt={section.image_alt}
+          loading="lazy"
+          class="aspect-[4/3] size-full object-cover"
+        />
+      </figure>
+      <div>
+        <div class="h-px w-10 bg-gold/60" aria-hidden="true"></div>
+        <h2 class="mt-6 font-display text-3xl md:text-4xl">{section.title}</h2>
+        <p class="mt-5 max-w-xl leading-relaxed text-muted">{section.body}</p>
+      </div>
+    </section>
+    <!-- ========== END ABSCHNITTE ========== -->
+
+    <!-- ========== GUT ZU WISSEN ========== -->
+    <section :if={@page.notes} class="pt-20 md:pt-28">
+      <div
+        data-theme="dark"
+        class="rounded-2xl border border-gold/40 bg-base-200 p-8 text-base-content md:p-10"
+      >
+        <p class="font-script text-2xl text-gold">{@page.notes.title}</p>
+        <ul class="mt-4 max-w-2xl space-y-2">
+          <li :for={item <- @page.notes.items} class="flex gap-3 leading-relaxed text-muted">
+            <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true"></span>
+            {item}
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- ========== END GUT ZU WISSEN ========== -->
+
+    <!-- ========== EINDRÜCKE ========== -->
+    <section :if={@page.gallery != []} class="pt-20 md:pt-28">
+      <div class="max-w-2xl">
+        <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Eindrücke</p>
+        <h2 class="mt-4 font-display text-3xl md:text-4xl">Ein paar Blicke.</h2>
+      </div>
+      <div class="mt-10">
+        <.photo_gallery gallery={@page.gallery} />
+      </div>
+    </section>
+    <!-- ========== END EINDRÜCKE ========== -->
+
+    <!-- ========== MEHR VOM HAUS ========== -->
+    <section class="pt-24 md:pt-32">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
+            Weiter im Rundgang
+          </p>
+          <h2 class="mt-4 font-display text-3xl md:text-4xl">Mehr vom Haus.</h2>
+        </div>
+        <a
+          href={~p"/haus/#{@next_page.slug}"}
+          class="rounded-full border border-gold/50 px-8 py-3 text-[15px] tracking-wide transition-colors hover:border-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+        >
+          Weiter: {@next_page.title} &rarr;
+        </a>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">
+        <.page_card :for={page <- @siblings} page={page} />
+      </div>
+    </section>
+    <!-- ========== END MEHR VOM HAUS ========== -->
+  </main>
+</Layouts.app>

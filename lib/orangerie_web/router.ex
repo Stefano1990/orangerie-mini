@@ -18,6 +18,12 @@ defmodule OrangerieWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/haus", ClubPageController, :index
+    get "/haus/:slug", ClubPageController, :show
+    get "/events", EventController, :index
+    get "/events/:id", EventController, :show
+    post "/events/:id/reserve", EventController, :reserve
+    post "/events/:id/review", EventController, :review
   end
 
   # Other scopes may use custom stacks.

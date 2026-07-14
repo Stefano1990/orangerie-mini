@@ -1,0 +1,7 @@
+_build/
+deps/
+.git/
+.expert/
+assets/node_modules/
+deploy/_out/
+erl_crash.dump

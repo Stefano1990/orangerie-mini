@@ -1,0 +1,15 @@
+[Unit]
+Description=Orangerie (Phoenix)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=ubuntu
+EnvironmentFile=/opt/orangerie/orangerie.env
+ExecStart=/opt/orangerie/current/bin/orangerie start
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

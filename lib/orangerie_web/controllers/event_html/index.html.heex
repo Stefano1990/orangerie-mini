@@ -1,0 +1,76 @@
+<Layouts.app flash={@flash}>
+  <main class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <!-- ========== DER LAUFENDE MONAT ========== -->
+    <div class="max-w-2xl">
+      <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
+        Eventkalender
+      </p>
+      <h1 class="mt-4 font-display text-4xl md:text-5xl">
+        {month_name(@today)} in der Orangerie.
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-muted">
+        Donnerstag, Freitag, Samstag — drei Abende pro Woche, jeder mit eigenem
+        Thema und eigener Gästeliste. Der ganze Monat auf einen Blick, auch die
+        Abende, die schon Geschichte sind.
+      </p>
+      <p class="mt-4 flex items-center gap-2.5 text-gold">
+        <OrangerieWeb.Components.PrelineComponents.icon name="wine" class="size-4 shrink-0" />
+        Früh reserviert, gut begrüsst: Bei Reservation bis 24 Stunden vor dem
+        Abend ist der Willkommensdrink geschenkt.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+      <.event_card
+        :for={event <- @this_month}
+        event={event}
+        past={Date.compare(event.date, @today) == :lt}
+      />
+    </div>
+    <!-- ========== END DER LAUFENDE MONAT ========== -->
+
+    <!-- ========== WEITER IM KALENDER ========== -->
+    <section class="pt-24 md:pt-32">
+      <div class="max-w-2xl">
+        <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Vorschau</p>
+        <h2 class="mt-4 font-display text-3xl md:text-4xl">Weiter im Kalender.</h2>
+        <p class="mt-4 leading-relaxed text-muted">
+          Wir publizieren unsere Abende mindestens sechs Monate im Voraus —
+          ab dem nächsten Monat jeweils zum Aufklappen.
+        </p>
+      </div>
+
+      <div class="hs-accordion-group mt-10 border-t border-base-300">
+        <.month_accordion
+          :for={{month, events} <- @later_by_month}
+          id_prefix="vorschau"
+          month={month}
+          events={events}
+        />
+      </div>
+    </section>
+    <!-- ========== END WEITER IM KALENDER ========== -->
+
+    <!-- ========== VERGANGENE ABENDE ========== -->
+    <section class="pt-24 md:pt-32">
+      <div class="max-w-2xl">
+        <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Archiv</p>
+        <h2 class="mt-4 font-display text-3xl md:text-4xl">Vergangene Abende.</h2>
+        <p class="mt-4 leading-relaxed text-muted">
+          Was war, bleibt im Haus — aber die Abende selbst dürfen Sie gerne
+          noch einmal nachlesen.
+        </p>
+      </div>
+
+      <div class="hs-accordion-group mt-10 border-t border-base-300">
+        <.month_accordion
+          :for={{month, events} <- @past_by_month}
+          id_prefix="archiv"
+          month={month}
+          events={events}
+        />
+      </div>
+    </section>
+    <!-- ========== END VERGANGENE ABENDE ========== -->
+  </main>
+</Layouts.app>

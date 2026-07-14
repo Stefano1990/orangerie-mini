@@ -37,18 +37,15 @@
       <img
         src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge4.jpg"
         alt="Der grosse Saal der Orangerie: Kronleuchter, Bogenfenster und die beleuchtete Bar"
-        class="absolute inset-0 size-full object-cover"
+        class="absolute inset-0 size-full object-cover [mask-image:linear-gradient(to_bottom,black_70%,transparent_100%)]"
       />
-      <!-- Mahogany scrim for legibility (always night, hence the local dark theme),
-           then a fade into the page surface -->
+      <!-- Mahogany scrim for legibility (always night, hence the local dark theme).
+           Like the image, it is masked to fade out towards the bottom: the body
+           background (base-100 plus its fixed washes) must show through untouched
+           at the section boundary, or a seam appears where the hero ends. -->
       <div
         data-theme="dark"
-        class="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_25%,color-mix(in_oklab,var(--color-base-100)_45%,transparent),color-mix(in_oklab,var(--color-base-100)_85%,transparent)_80%)]"
-        aria-hidden="true"
-      >
-      </div>
-      <div
-        class="absolute inset-x-0 bottom-0 h-44 bg-linear-to-t from-base-100 to-transparent"
+        class="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_25%,color-mix(in_oklab,var(--color-base-100)_45%,transparent),color-mix(in_oklab,var(--color-base-100)_85%,transparent)_80%)] [mask-image:linear-gradient(to_bottom,black_calc(100%_-_14rem),transparent_100%)]"
         aria-hidden="true"
       >
       </div>
