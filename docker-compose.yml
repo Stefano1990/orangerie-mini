@@ -7,9 +7,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - 5432:5432
+      - 5500:5500
     volumes:
       - orangerie_pgdata:/var/lib/postgresql/data
+    command: -p 5500
 
 volumes:
   orangerie_pgdata:

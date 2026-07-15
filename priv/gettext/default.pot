@@ -1,0 +1,381 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new messages manually only if they're dynamic
+## messages that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+#
+msgid ""
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:573
+#, elixir-autogen, elixir-format
+msgid "AGB"
+msgstr ""
+
+#: lib/orangerie_web/components/core_components.ex:375
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:328
+#, elixir-autogen, elixir-format
+msgid "Ankommen"
+msgstr ""
+
+#: lib/orangerie_web/components/layouts.ex:73
+#: lib/orangerie_web/components/layouts.ex:88
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:115
+#, elixir-autogen, elixir-format
+msgid "Das Haus entdecken"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:171
+#, elixir-autogen, elixir-format
+msgid "Das Restaurant"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:290
+#, elixir-autogen, elixir-format
+msgid "Das Spa"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:572
+#, elixir-autogen, elixir-format
+msgid "Datenschutz"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:90
+#, elixir-autogen, elixir-format
+msgid "Der %{em_open}schönste%{em_close} Ort,%{br} über den man nicht spricht."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:266
+#: lib/orangerie_web/controllers/page_html/home.html.heex:373
+#, elixir-autogen, elixir-format
+msgid "Der Garten"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:242
+#, elixir-autogen, elixir-format
+msgid "Der Salon"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:511
+#, elixir-autogen, elixir-format
+msgid "Der erste Abend"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:40
+#, elixir-autogen, elixir-format
+msgid "Der grosse Saal der Orangerie: Kronleuchter, Bogenfenster und die beleuchtete Bar"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:224
+#, elixir-autogen, elixir-format
+msgid "Der grosse Salon mit Ledersofas, Teppichen und Marmortischen unter der Galerie"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:208
+#, elixir-autogen, elixir-format
+msgid "Die Bar"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:360
+#, elixir-autogen, elixir-format
+msgid "Die Musik wird lauter, das Licht wärmer. Die Bühne gehört dem Abend."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:358
+#, elixir-autogen, elixir-format
+msgid "Die Show"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:137
+#, elixir-autogen, elixir-format
+msgid "Die alte Orangerie hat ihre Bogenfenster behalten. Was dahinter liegt, sieht man von aussen nicht."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:190
+#, elixir-autogen, elixir-format
+msgid "Die beleuchtete Bar mit Barhockern, darüber die Galerie mit schmiedeeisernem Geländer"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:212
+#, elixir-autogen, elixir-format
+msgid "Die lange Bar im Herzen des Hauses. Hier beginnt jeder Abend."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:343
+#, elixir-autogen, elixir-format
+msgid "Dinner"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:412
+#, elixir-autogen, elixir-format
+msgid "Diskretion"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:456
+#, elixir-autogen, elixir-format
+msgid "Donnerstag"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:562
+#, elixir-autogen, elixir-format
+msgid "Donnerstag 17 – 01 Uhr"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:405
+#, elixir-autogen, elixir-format
+msgid "Drei Regeln. Keine Ausnahmen."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:516
+#, elixir-autogen, elixir-format
+msgid "Ein Tisch im Restaurant ist der schönste Weg, das Haus kennenzulernen — unverbindlich und diskret."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:330
+#, elixir-autogen, elixir-format
+msgid "Ein erstes Glas an der Bar. Bekannte Gesichter — und neue."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:432
+#, elixir-autogen, elixir-format
+msgid "Elegante Garderobe, gepflegte Umgangsformen. Wer sich Mühe gibt, gehört dazu."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:375
+#, elixir-autogen, elixir-format
+msgid "Feuer, Gespräche unter freiem Himmel — und was daraus wird."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:99
+#, elixir-autogen, elixir-format
+msgid "Fine Dining, eine lange Bar, eine Bühne mit Catwalk, ein Garten mit offenem Feuer — und ein Spa für später. Die Orangerie ist ein Club für Paare und ausgewählte Gäste. Diskret, respektvoll, mit Stil."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:460
+#, elixir-autogen, elixir-format
+msgid "Freitag"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:563
+#, elixir-autogen, elixir-format
+msgid "Freitag & Samstag 19 – 04 Uhr"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:134
+#, elixir-autogen, elixir-format
+msgid "Fünf Räume. Ein Abend."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:300
+#, elixir-autogen, elixir-format
+msgid "Garten und Spa fotografieren wir nicht — Diskretion beginnt bei uns selbst."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:473
+#, elixir-autogen, elixir-format
+msgid "Geschlossen"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:571
+#, elixir-autogen, elixir-format
+msgid "Impressum"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:414
+#, elixir-autogen, elixir-format
+msgid "Keine Fotos, keine Nachnamen. Was in der Orangerie geschieht, bleibt in der Orangerie."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:246
+#, elixir-autogen, elixir-format
+msgid "Ledersofas, Teppiche, Kerzenlicht — das Wohnzimmer des Hauses."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:345
+#, elixir-autogen, elixir-format
+msgid "Mehrere Gänge bei gedämpftem Licht. Niemand schaut auf die Uhr."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:176
+#, elixir-autogen, elixir-format
+msgid "Mehrgängige Küche auf einem Niveau, das hier niemand erwartet — bis zum ersten Gang."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:531
+#, elixir-autogen, elixir-format
+msgid "Mitglied werden"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:483
+#, elixir-autogen, elixir-format
+msgid "Mitten im Thurgau"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:472
+#, elixir-autogen, elixir-format
+msgid "Montag – Mittwoch"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:388
+#, elixir-autogen, elixir-format
+msgid "Nach Hause"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:513
+#, elixir-autogen, elixir-format
+msgid "Neugier ist der beste Anfang."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:423
+#, elixir-autogen, elixir-format
+msgid "Nähe entsteht, wenn beide sie wollen. Ein Nein ist ein Nein — ohne Diskussion."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:270
+#, elixir-autogen, elixir-format
+msgid "Offenes Feuer in der Gartenhütte, dazu der Himmel über dem Thurgau."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:494
+#, elixir-autogen, elixir-format
+msgid "Paare und einzelne Damen sind an allen Abenden willkommen, einzelne Herren an ausgewählten — Details im Eventkalender."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:421
+#, elixir-autogen, elixir-format
+msgid "Respekt"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:83
+#, elixir-autogen, elixir-format
+msgid "Restaurant · Bar · Lifestyle-Club — Wängi, Thurgau"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:546
+#, elixir-autogen, elixir-format
+msgid "Restaurant, Bar & Lifestyle-Club für Paare — seit jeher diskret."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:464
+#, elixir-autogen, elixir-format
+msgid "Samstag"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:294
+#, elixir-autogen, elixir-format
+msgid "Sauna, Whirlpool und stille Ecken für später."
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:314
+#, elixir-autogen, elixir-format
+msgid "So vergehen hier die Stunden."
+msgstr ""
+
+#: lib/orangerie_web/components/layouts.ex:80
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:468
+#, elixir-autogen, elixir-format
+msgid "Sonntag"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:564
+#, elixir-autogen, elixir-format
+msgid "Sonntag 14 – 23 Uhr"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:430
+#, elixir-autogen, elixir-format
+msgid "Stil"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:152
+#, elixir-autogen, elixir-format
+msgid "Séparée mit gestreiften Louis-XV-Sofas, Kerzenlicht und Spiegel an oxblutroter Wand"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:109
+#: lib/orangerie_web/controllers/page_html/home.html.heex:525
+#, elixir-autogen, elixir-format
+msgid "Tisch reservieren"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:389
+#, elixir-autogen, elixir-format
+msgid "Was bleibt, bleibt hier."
+msgstr ""
+
+#: lib/orangerie_web/components/layouts.ex:65
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:574
+#, elixir-autogen, elixir-format
+msgid "Zutritt ab 18 Jahren"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:120
+#, elixir-autogen, elixir-format
+msgid "Zutritt ab 18 Jahren · Elegante Abendgarderobe"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:489
+#, elixir-autogen, elixir-format
+msgid "Zwischen Winterthur und Wil — gut erreichbar von Zürich, St. Gallen und der ganzen Ostschweiz. Parkplätze direkt am Haus."
+msgstr ""
+
+#: lib/orangerie_web/components/core_components.ex:81
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:551
+#, elixir-autogen, elixir-format
+msgid "Adresse"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:480
+#, elixir-autogen, elixir-format
+msgid "Anreise"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:449
+#, elixir-autogen, elixir-format
+msgid "Besuch"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:131
+#, elixir-autogen, elixir-format
+msgid "Das Haus"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:311
+#, elixir-autogen, elixir-format
+msgid "Ein Abend"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:402
+#, elixir-autogen, elixir-format
+msgid "Etikette"
+msgstr ""
+
+#: lib/orangerie_web/controllers/page_html/home.html.heex:452
+#: lib/orangerie_web/controllers/page_html/home.html.heex:559
+#, elixir-autogen, elixir-format
+msgid "Öffnungszeiten"
+msgstr ""

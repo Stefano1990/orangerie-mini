@@ -36,7 +36,11 @@
     <section class="relative flex min-h-[calc(100svh-3.5rem)] flex-col items-center justify-center overflow-hidden px-6 py-24 text-center">
       <img
         src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge4.jpg"
-        alt="Der grosse Saal der Orangerie: Kronleuchter, Bogenfenster und die beleuchtete Bar"
+        alt={
+          gettext(
+            "Der grosse Saal der Orangerie: Kronleuchter, Bogenfenster und die beleuchtete Bar"
+          )
+        }
         class="absolute inset-0 size-full object-cover [mask-image:linear-gradient(to_bottom,black_70%,transparent_100%)]"
       />
       <!-- Mahogany scrim for legibility (always night, hence the local dark theme).
@@ -76,18 +80,25 @@
 
       <div data-theme="dark" class="relative max-w-3xl text-base-content">
         <p class="o-rise text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
-          Restaurant · Bar · Lifestyle-Club — Wängi, Thurgau
+          {gettext("Restaurant · Bar · Lifestyle-Club — Wängi, Thurgau")}
         </p>
-
+        <!-- The styled word moves with the sentence, so the whole headline is one
+             msgid and the markup is interpolated: translators can reorder freely
+             and the classes stay out of the .po file. -->
         <h1 class="o-rise o-d1 mt-8 font-display text-5xl leading-[1.08] sm:text-6xl md:text-7xl">
-          Der <span class="font-script text-[1.06em] font-normal text-gold">schönste</span>
-          Ort,<br /> über den man nicht spricht.
+          {raw(
+            gettext("Der %{em_open}schönste%{em_close} Ort,%{br} über den man nicht spricht.",
+              em_open: ~s(<span class="font-script text-[1.06em] font-normal text-gold">),
+              em_close: "</span>",
+              br: "<br />"
+            )
+          )}
         </h1>
 
         <p class="o-rise o-d2 mx-auto mt-8 max-w-xl text-lg leading-relaxed text-muted">
-          Fine Dining, eine lange Bar, eine Bühne mit Catwalk, ein Garten mit offenem
-          Feuer — und ein Spa für später. Die Orangerie ist ein Club für Paare und
-          ausgewählte Gäste. Diskret, respektvoll, mit Stil.
+          {gettext(
+            "Fine Dining, eine lange Bar, eine Bühne mit Catwalk, ein Garten mit offenem Feuer — und ein Spa für später. Die Orangerie ist ein Club für Paare und ausgewählte Gäste. Diskret, respektvoll, mit Stil."
+          )}
         </p>
 
         <div class="o-rise o-d3 mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -95,18 +106,18 @@
             href="#kontakt"
             class="rounded-full bg-primary px-8 py-3 text-[15px] tracking-wide text-primary-content shadow-lg shadow-primary/40 transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
-            Tisch reservieren
+            {gettext("Tisch reservieren")}
           </a>
           <a
             href="#haus"
             class="rounded-full border border-gold/50 px-8 py-3 text-[15px] tracking-wide transition-colors hover:border-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
-            Das Haus entdecken
+            {gettext("Das Haus entdecken")}
           </a>
         </div>
 
         <p class="o-rise o-d4 mt-8 text-xs tracking-[0.2em] text-muted/80 uppercase">
-          Zutritt ab 18 Jahren · Elegante Abendgarderobe
+          {gettext("Zutritt ab 18 Jahren · Elegante Abendgarderobe")}
         </p>
       </div>
     </section>
@@ -116,11 +127,16 @@
     <section id="haus" class="scroll-mt-24 py-20 md:py-28">
       <div class="mx-auto max-w-6xl px-6">
         <div class="max-w-2xl">
-          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Das Haus</p>
-          <h2 class="mt-4 font-display text-4xl md:text-5xl">Fünf Räume. Ein Abend.</h2>
+          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
+            {gettext("Das Haus")}
+          </p>
+          <h2 class="mt-4 font-display text-4xl md:text-5xl">
+            {gettext("Fünf Räume. Ein Abend.")}
+          </h2>
           <p class="mt-5 text-lg leading-relaxed text-muted">
-            Die alte Orangerie hat ihre Bogenfenster behalten. Was dahinter liegt,
-            sieht man von aussen nicht.
+            {gettext(
+              "Die alte Orangerie hat ihre Bogenfenster behalten. Was dahinter liegt, sieht man von aussen nicht."
+            )}
           </p>
         </div>
 
@@ -132,7 +148,11 @@
             >
               <img
                 src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge3.jpg"
-                alt="Séparée mit gestreiften Louis-XV-Sofas, Kerzenlicht und Spiegel an oxblutroter Wand"
+                alt={
+                  gettext(
+                    "Séparée mit gestreiften Louis-XV-Sofas, Kerzenlicht und Spiegel an oxblutroter Wand"
+                  )
+                }
                 loading="lazy"
                 class="absolute inset-0 size-full object-cover object-[65%_50%] motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
               />
@@ -147,11 +167,15 @@
               >
               </div>
               <div class="absolute inset-x-0 bottom-0 p-5 text-center">
-                <h3 class="font-display text-2xl text-base-content">Das Restaurant</h3>
+                <h3 class="font-display text-2xl text-base-content">
+                  {gettext("Das Restaurant")}
+                </h3>
               </div>
             </div>
             <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
-              Mehrgängige Küche auf einem Niveau, das hier niemand erwartet — bis zum ersten Gang.
+              {gettext(
+                "Mehrgängige Küche auf einem Niveau, das hier niemand erwartet — bis zum ersten Gang."
+              )}
             </p>
           </article>
 
@@ -162,7 +186,11 @@
             >
               <img
                 src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge2.jpg"
-                alt="Die beleuchtete Bar mit Barhockern, darüber die Galerie mit schmiedeeisernem Geländer"
+                alt={
+                  gettext(
+                    "Die beleuchtete Bar mit Barhockern, darüber die Galerie mit schmiedeeisernem Geländer"
+                  )
+                }
                 loading="lazy"
                 class="absolute inset-0 size-full object-cover object-[38%_50%] motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
               />
@@ -177,11 +205,11 @@
               >
               </div>
               <div class="absolute inset-x-0 bottom-0 p-5 text-center">
-                <h3 class="font-display text-2xl text-base-content">Die Bar</h3>
+                <h3 class="font-display text-2xl text-base-content">{gettext("Die Bar")}</h3>
               </div>
             </div>
             <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
-              Die lange Bar im Herzen des Hauses. Hier beginnt jeder Abend.
+              {gettext("Die lange Bar im Herzen des Hauses. Hier beginnt jeder Abend.")}
             </p>
           </article>
 
@@ -192,7 +220,11 @@
             >
               <img
                 src="https://orangerie-prod.s3.eu-central-1.amazonaws.com/static_pages/welcome/lounge5.jpg"
-                alt="Der grosse Salon mit Ledersofas, Teppichen und Marmortischen unter der Galerie"
+                alt={
+                  gettext(
+                    "Der grosse Salon mit Ledersofas, Teppichen und Marmortischen unter der Galerie"
+                  )
+                }
                 loading="lazy"
                 class="absolute inset-0 size-full object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
               />
@@ -207,11 +239,11 @@
               >
               </div>
               <div class="absolute inset-x-0 bottom-0 p-5 text-center">
-                <h3 class="font-display text-2xl text-base-content">Der Salon</h3>
+                <h3 class="font-display text-2xl text-base-content">{gettext("Der Salon")}</h3>
               </div>
             </div>
             <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
-              Ledersofas, Teppiche, Kerzenlicht — das Wohnzimmer des Hauses.
+              {gettext("Ledersofas, Teppiche, Kerzenlicht — das Wohnzimmer des Hauses.")}
             </p>
           </article>
 
@@ -231,11 +263,11 @@
               >
               </div>
               <div class="absolute inset-x-0 bottom-0 p-5 text-center">
-                <h3 class="font-display text-2xl text-base-content">Der Garten</h3>
+                <h3 class="font-display text-2xl text-base-content">{gettext("Der Garten")}</h3>
               </div>
             </div>
             <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
-              Offenes Feuer in der Gartenhütte, dazu der Himmel über dem Thurgau.
+              {gettext("Offenes Feuer in der Gartenhütte, dazu der Himmel über dem Thurgau.")}
             </p>
           </article>
 
@@ -255,17 +287,17 @@
               >
               </div>
               <div class="absolute inset-x-0 bottom-0 p-5 text-center">
-                <h3 class="font-display text-2xl text-base-content">Das Spa</h3>
+                <h3 class="font-display text-2xl text-base-content">{gettext("Das Spa")}</h3>
               </div>
             </div>
             <p class="mt-4 px-2 text-center text-sm leading-relaxed text-muted">
-              Sauna, Whirlpool und stille Ecken für später.
+              {gettext("Sauna, Whirlpool und stille Ecken für später.")}
             </p>
           </article>
         </div>
 
         <p class="mt-10 text-center text-sm italic text-muted">
-          Garten und Spa fotografieren wir nicht — Diskretion beginnt bei uns selbst.
+          {gettext("Garten und Spa fotografieren wir nicht — Diskretion beginnt bei uns selbst.")}
         </p>
       </div>
     </section>
@@ -275,8 +307,12 @@
     <section id="abend" class="scroll-mt-24 py-20 md:py-28">
       <div class="mx-auto max-w-6xl px-6">
         <div class="mx-auto max-w-2xl text-center">
-          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Ein Abend</p>
-          <h2 class="mt-4 font-display text-4xl md:text-5xl">So vergehen hier die Stunden.</h2>
+          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
+            {gettext("Ein Abend")}
+          </p>
+          <h2 class="mt-4 font-display text-4xl md:text-5xl">
+            {gettext("So vergehen hier die Stunden.")}
+          </h2>
         </div>
 
         <ol class="mx-auto mt-14 max-w-2xl">
@@ -289,9 +325,9 @@
                 class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
                 aria-hidden="true"
               ></span>
-              <h3 class="font-display text-2xl">Ankommen</h3>
+              <h3 class="font-display text-2xl">{gettext("Ankommen")}</h3>
               <p class="mt-1 leading-relaxed text-muted">
-                Ein erstes Glas an der Bar. Bekannte Gesichter — und neue.
+                {gettext("Ein erstes Glas an der Bar. Bekannte Gesichter — und neue.")}
               </p>
             </div>
           </li>
@@ -304,9 +340,9 @@
                 class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
                 aria-hidden="true"
               ></span>
-              <h3 class="font-display text-2xl">Dinner</h3>
+              <h3 class="font-display text-2xl">{gettext("Dinner")}</h3>
               <p class="mt-1 leading-relaxed text-muted">
-                Mehrere Gänge bei gedämpftem Licht. Niemand schaut auf die Uhr.
+                {gettext("Mehrere Gänge bei gedämpftem Licht. Niemand schaut auf die Uhr.")}
               </p>
             </div>
           </li>
@@ -319,9 +355,9 @@
                 class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
                 aria-hidden="true"
               ></span>
-              <h3 class="font-display text-2xl">Die Show</h3>
+              <h3 class="font-display text-2xl">{gettext("Die Show")}</h3>
               <p class="mt-1 leading-relaxed text-muted">
-                Die Musik wird lauter, das Licht wärmer. Die Bühne gehört dem Abend.
+                {gettext("Die Musik wird lauter, das Licht wärmer. Die Bühne gehört dem Abend.")}
               </p>
             </div>
           </li>
@@ -334,9 +370,9 @@
                 class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
                 aria-hidden="true"
               ></span>
-              <h3 class="font-display text-2xl">Der Garten</h3>
+              <h3 class="font-display text-2xl">{gettext("Der Garten")}</h3>
               <p class="mt-1 leading-relaxed text-muted">
-                Feuer, Gespräche unter freiem Himmel — und was daraus wird.
+                {gettext("Feuer, Gespräche unter freiem Himmel — und was daraus wird.")}
               </p>
             </div>
           </li>
@@ -349,8 +385,8 @@
                 class="absolute -start-[3.5px] top-2.5 size-1.5 rounded-full bg-gold"
                 aria-hidden="true"
               ></span>
-              <h3 class="font-display text-2xl">Nach Hause</h3>
-              <p class="mt-1 leading-relaxed text-muted">Was bleibt, bleibt hier.</p>
+              <h3 class="font-display text-2xl">{gettext("Nach Hause")}</h3>
+              <p class="mt-1 leading-relaxed text-muted">{gettext("Was bleibt, bleibt hier.")}</p>
             </div>
           </li>
         </ol>
@@ -362,33 +398,40 @@
     <section id="etikette" class="scroll-mt-24 py-20 md:py-28">
       <div class="mx-auto max-w-6xl px-6">
         <div class="max-w-2xl">
-          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Etikette</p>
-          <h2 class="mt-4 font-display text-4xl md:text-5xl">Drei Regeln. Keine Ausnahmen.</h2>
+          <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
+            {gettext("Etikette")}
+          </p>
+          <h2 class="mt-4 font-display text-4xl md:text-5xl">
+            {gettext("Drei Regeln. Keine Ausnahmen.")}
+          </h2>
         </div>
 
         <div class="mt-14 grid gap-12 md:grid-cols-3 md:gap-0 md:divide-x md:divide-base-300">
           <div class="md:pe-10">
             <div class="mb-6 h-px w-10 bg-gold/60" aria-hidden="true"></div>
-            <h3 class="font-display text-2xl">Diskretion</h3>
+            <h3 class="font-display text-2xl">{gettext("Diskretion")}</h3>
             <p class="mt-3 leading-relaxed text-muted">
-              Keine Fotos, keine Nachnamen. Was in der Orangerie geschieht,
-              bleibt in der Orangerie.
+              {gettext(
+                "Keine Fotos, keine Nachnamen. Was in der Orangerie geschieht, bleibt in der Orangerie."
+              )}
             </p>
           </div>
           <div class="md:px-10">
             <div class="mb-6 h-px w-10 bg-gold/60" aria-hidden="true"></div>
-            <h3 class="font-display text-2xl">Respekt</h3>
+            <h3 class="font-display text-2xl">{gettext("Respekt")}</h3>
             <p class="mt-3 leading-relaxed text-muted">
-              Nähe entsteht, wenn beide sie wollen. Ein Nein ist ein Nein —
-              ohne Diskussion.
+              {gettext(
+                "Nähe entsteht, wenn beide sie wollen. Ein Nein ist ein Nein — ohne Diskussion."
+              )}
             </p>
           </div>
           <div class="md:ps-10">
             <div class="mb-6 h-px w-10 bg-gold/60" aria-hidden="true"></div>
-            <h3 class="font-display text-2xl">Stil</h3>
+            <h3 class="font-display text-2xl">{gettext("Stil")}</h3>
             <p class="mt-3 leading-relaxed text-muted">
-              Elegante Garderobe, gepflegte Umgangsformen. Wer sich Mühe gibt,
-              gehört dazu.
+              {gettext(
+                "Elegante Garderobe, gepflegte Umgangsformen. Wer sich Mühe gibt, gehört dazu."
+              )}
             </p>
           </div>
         </div>
@@ -402,47 +445,55 @@
         <div class="rounded-3xl border border-base-300 bg-base-100/60 p-8 backdrop-blur md:p-14">
           <div class="grid gap-12 md:grid-cols-2 md:gap-16">
             <div>
-              <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Besuch</p>
-              <h2 class="mt-4 font-display text-3xl md:text-4xl">Öffnungszeiten</h2>
+              <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
+                {gettext("Besuch")}
+              </p>
+              <h2 class="mt-4 font-display text-3xl md:text-4xl">
+                {gettext("Öffnungszeiten")}
+              </h2>
               <dl class="mt-8">
                 <div class="flex items-baseline justify-between gap-4 border-b border-base-300 py-3">
-                  <dt>Donnerstag</dt>
+                  <dt>{gettext("Donnerstag")}</dt>
                   <dd class="text-muted">17:00 – 01:00</dd>
                 </div>
                 <div class="flex items-baseline justify-between gap-4 border-b border-base-300 py-3">
-                  <dt>Freitag</dt>
+                  <dt>{gettext("Freitag")}</dt>
                   <dd class="text-muted">19:00 – 04:00</dd>
                 </div>
                 <div class="flex items-baseline justify-between gap-4 border-b border-base-300 py-3">
-                  <dt>Samstag</dt>
+                  <dt>{gettext("Samstag")}</dt>
                   <dd class="text-muted">19:00 – 04:00</dd>
                 </div>
                 <div class="flex items-baseline justify-between gap-4 border-b border-base-300 py-3">
-                  <dt>Sonntag</dt>
+                  <dt>{gettext("Sonntag")}</dt>
                   <dd class="text-muted">14:00 – 23:00</dd>
                 </div>
                 <div class="flex items-baseline justify-between gap-4 py-3">
-                  <dt>Montag – Mittwoch</dt>
-                  <dd class="text-muted">Geschlossen</dd>
+                  <dt>{gettext("Montag – Mittwoch")}</dt>
+                  <dd class="text-muted">{gettext("Geschlossen")}</dd>
                 </div>
               </dl>
             </div>
 
             <div>
               <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
-                Anreise
+                {gettext("Anreise")}
               </p>
-              <h2 class="mt-4 font-display text-3xl md:text-4xl">Mitten im Thurgau</h2>
+              <h2 class="mt-4 font-display text-3xl md:text-4xl">
+                {gettext("Mitten im Thurgau")}
+              </h2>
               <address class="mt-8 not-italic leading-relaxed">
                 Orangerie le Club AG<br /> Wilerstrasse 55<br /> 9545 Wängi
               </address>
               <p class="mt-6 leading-relaxed text-muted">
-                Zwischen Winterthur und Wil — gut erreichbar von Zürich,
-                St. Gallen und der ganzen Ostschweiz. Parkplätze direkt am Haus.
+                {gettext(
+                  "Zwischen Winterthur und Wil — gut erreichbar von Zürich, St. Gallen und der ganzen Ostschweiz. Parkplätze direkt am Haus."
+                )}
               </p>
               <p class="mt-6 text-sm leading-relaxed text-muted">
-                Paare und einzelne Damen sind an allen Abenden willkommen,
-                einzelne Herren an ausgewählten — Details im Eventkalender.
+                {gettext(
+                  "Paare und einzelne Damen sind an allen Abenden willkommen, einzelne Herren an ausgewählten — Details im Eventkalender."
+                )}
               </p>
             </div>
           </div>
@@ -457,26 +508,27 @@
         data-theme="dark"
         class="mx-auto max-w-3xl rounded-t-[14rem] rounded-b-3xl border border-gold/40 bg-base-200 px-8 pb-16 pt-24 text-center text-base-content md:px-20 md:pb-20 md:pt-32"
       >
-        <p class="font-script text-3xl text-gold">Der erste Abend</p>
+        <p class="font-script text-3xl text-gold">{gettext("Der erste Abend")}</p>
         <h2 class="mt-4 font-display text-4xl md:text-5xl">
-          Neugier ist der beste Anfang.
+          {gettext("Neugier ist der beste Anfang.")}
         </h2>
         <p class="mx-auto mt-6 max-w-md leading-relaxed text-muted">
-          Ein Tisch im Restaurant ist der schönste Weg, das Haus
-          kennenzulernen — unverbindlich und diskret.
+          {gettext(
+            "Ein Tisch im Restaurant ist der schönste Weg, das Haus kennenzulernen — unverbindlich und diskret."
+          )}
         </p>
         <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#kontakt"
             class="rounded-full bg-primary px-8 py-3 text-[15px] tracking-wide text-primary-content transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
-            Tisch reservieren
+            {gettext("Tisch reservieren")}
           </a>
           <a
             href="#"
             class="rounded-full border border-gold/50 px-8 py-3 text-[15px] tracking-wide transition-colors hover:border-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
-            Mitglied werden
+            {gettext("Mitglied werden")}
           </a>
         </div>
       </div>
@@ -491,29 +543,35 @@
         <div>
           <p class="font-script text-3xl text-primary">Orangerie</p>
           <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted">
-            Restaurant, Bar & Lifestyle-Club für Paare — seit jeher diskret.
+            {gettext("Restaurant, Bar & Lifestyle-Club für Paare — seit jeher diskret.")}
           </p>
         </div>
         <div>
-          <p class="mb-4 text-xs uppercase tracking-[0.3em] text-muted">Adresse</p>
+          <p class="mb-4 text-xs uppercase tracking-[0.3em] text-muted">
+            {gettext("Adresse")}
+          </p>
           <address class="text-sm not-italic leading-relaxed">
             Orangerie le Club AG<br /> Wilerstrasse 55<br /> 9545 Wängi
           </address>
         </div>
         <div>
-          <p class="mb-4 text-xs uppercase tracking-[0.3em] text-muted">Öffnungszeiten</p>
+          <p class="mb-4 text-xs uppercase tracking-[0.3em] text-muted">
+            {gettext("Öffnungszeiten")}
+          </p>
           <p class="text-sm leading-relaxed">
-            Donnerstag 17 – 01 Uhr<br /> Freitag & Samstag 19 – 04 Uhr<br /> Sonntag 14 – 23 Uhr
+            {gettext("Donnerstag 17 – 01 Uhr")}<br />
+            {gettext("Freitag & Samstag 19 – 04 Uhr")}<br />
+            {gettext("Sonntag 14 – 23 Uhr")}
           </p>
         </div>
       </div>
       <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-base-300 pt-6 text-xs text-muted">
         <p>© 2026 Orangerie le Club AG</p>
         <div class="flex flex-wrap gap-x-6 gap-y-2">
-          <a href="#" class="transition-colors hover:text-primary">Impressum</a>
-          <a href="#" class="transition-colors hover:text-primary">Datenschutz</a>
-          <a href="#" class="transition-colors hover:text-primary">AGB</a>
-          <span>Zutritt ab 18 Jahren</span>
+          <a href="#" class="transition-colors hover:text-primary">{gettext("Impressum")}</a>
+          <a href="#" class="transition-colors hover:text-primary">{gettext("Datenschutz")}</a>
+          <a href="#" class="transition-colors hover:text-primary">{gettext("AGB")}</a>
+          <span>{gettext("Zutritt ab 18 Jahren")}</span>
         </div>
       </div>
     </div>

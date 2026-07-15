@@ -110,7 +110,7 @@ defmodule OrangerieWeb.Components.PrelineComponents do
       <button
         id="hs-haus-dropdown"
         type="button"
-        class="hs-dropdown-toggle flex w-full items-center p-2 text-[15px] text-base-content/75 transition-colors hover:text-primary focus:text-primary focus:outline-hidden"
+        class="hs-dropdown-toggle cursor-pointer flex w-full items-center p-2 text-[15px] text-base-content/75 transition-colors hover:text-primary focus:text-primary focus:outline-hidden"
         aria-haspopup="menu"
         aria-expanded="false"
         aria-label="Das Haus"

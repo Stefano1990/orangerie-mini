@@ -10,6 +10,7 @@ config :orangerie, Orangerie.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
+  port: 5500,
   database: "orangerie_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2

@@ -69,6 +69,28 @@ body {
   background-attachment: fixed;
 }
 
+/* Gilded fleur-de-lis damask over the wash. The tile is gold on a solid
+   oxblood field, so it is blended rather than merely faded: multiply lets the
+   parchment show through and keeps only the motif; dark mode screens instead,
+   where the tile's own oxblood sinks into the mahogany and the gold lifts. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("/images/fleur-de-lis-tile.png");
+  background-repeat: repeat;
+  background-size: 320px auto;
+  mix-blend-mode: multiply;
+  opacity: 0.045;
+}
+
+[data-theme="dark"] body::before {
+  mix-blend-mode: screen;
+  opacity: 0.08;
+}
+
 /* Headings wear the display serif by default. */
 h1,
 h2,
