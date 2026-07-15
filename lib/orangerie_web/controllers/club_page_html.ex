@@ -74,6 +74,10 @@ defmodule OrangerieWeb.ClubPageHTML do
 
   @doc """
   A photo strip: two columns on small screens, one per photo above.
+
+  Each photo opens the lightbox below. The thumbnail's button covers the tile
+  rather than wrapping it, so the `<figure>` stays the hover group and the image
+  keeps its own markup.
   """
   attr :gallery, :list, required: true
 
@@ -86,15 +90,57 @@ defmodule OrangerieWeb.ClubPageHTML do
     ]}>
       <figure
         :for={photo <- @gallery}
-        class="overflow-hidden rounded-2xl border border-base-300"
+        class="group relative overflow-hidden rounded-2xl border border-base-300"
       >
         <img
           src={photo.image}
           alt={photo.alt}
           loading="lazy"
-          class="aspect-square size-full object-cover transition-transform duration-700 hover:scale-105"
+          class="aspect-square size-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        <button
+          type="button"
+          class="absolute inset-0 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-gold"
+          data-hs-overlay="#photo-lightbox"
+          data-lightbox-src={photo.image}
+          data-lightbox-alt={photo.alt}
+        >
+          <span class="sr-only">Bild vergrössern: {photo.alt}</span>
+        </button>
       </figure>
+    </div>
+
+    <.photo_lightbox />
+    """
+  end
+
+  # The lightbox behind photo_gallery/1: one Preline overlay shared by every
+  # thumbnail, showing nothing but the photograph on black. The clicked thumbnail
+  # fills in src/alt (see app.js), so the markup here stays gallery-agnostic.
+  defp photo_lightbox(assigns) do
+    ~H"""
+    <div
+      id="photo-lightbox"
+      class="hs-overlay pointer-events-none fixed start-0 top-0 z-80 hidden size-full"
+      data-hs-overlay-options={
+        ~s({"backdropClasses": "hs-overlay-backdrop fixed inset-0 bg-black transition duration-300"})
+      }
+      role="dialog"
+      tabindex="-1"
+      aria-label="Bild in voller Grösse"
+    >
+      <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 flex size-full scale-95 items-center justify-center p-2 opacity-0 transition-all duration-300 sm:p-6">
+        <img alt="" class="pointer-events-auto max-h-full max-w-full object-contain" />
+      </div>
+
+      <button
+        type="button"
+        class="pointer-events-auto absolute end-3 top-3 inline-flex size-10 items-center justify-center rounded-full text-white/70 hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        data-hs-overlay="#photo-lightbox"
+      >
+        <.icon name="hero-x-mark" class="size-6" />
+        <span class="sr-only">Schliessen</span>
+      </button>
     </div>
     """
   end

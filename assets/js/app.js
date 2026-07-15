@@ -50,6 +50,22 @@ const initPreline = () => window.HSStaticMethods?.autoInit()
 document.addEventListener("DOMContentLoaded", initPreline)
 window.addEventListener("phx:page-loading-stop", initPreline)
 
+// Photo lightbox on the club pages (see ClubPageHTML.photo_lightbox/1): every
+// gallery thumbnail opens one shared overlay, so the clicked thumbnail has to
+// hand it the photograph. Preline's overlay trigger gives us no hook for that,
+// hence this listener. It only fills in the image — opening is Preline's job,
+// via the same button's data-hs-overlay.
+document.addEventListener("click", e => {
+  const trigger = e.target.closest?.("[data-lightbox-src]")
+  if (!trigger) return
+
+  const image = document.querySelector("#photo-lightbox img")
+  if (!image) return
+
+  image.src = trigger.dataset.lightboxSrc
+  image.alt = trigger.dataset.lightboxAlt || ""
+})
+
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 
