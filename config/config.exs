@@ -31,6 +31,7 @@ config :spark,
     remove_parens?: true,
     "Ash.Resource": [
       section_order: [
+        :admin,
         :postgres,
         :resource,
         :code_interface,
@@ -48,12 +49,15 @@ config :spark,
         :identities
       ]
     ],
-    "Ash.Domain": [section_order: [:resources, :policies, :authorization, :domain, :execution]]
+    "Ash.Domain": [
+      section_order: [:admin, :resources, :policies, :authorization, :domain, :execution]
+    ]
   ]
 
 config :orangerie,
   ecto_repos: [Orangerie.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime],
+  ash_domains: [Orangerie.Events]
 
 # Configure the endpoint
 config :orangerie, OrangerieWeb.Endpoint,
