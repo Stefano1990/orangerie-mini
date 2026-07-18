@@ -13,11 +13,13 @@
         data-theme="dark"
         class="relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-2xl border border-gold/30 bg-base-100"
       >
+        <!--
         <img
           src={@event.image}
           alt={@event.image_alt}
           class="absolute inset-0 size-full object-cover"
         />
+        -->
         <div
           class="pointer-events-none absolute inset-2 rounded-t-full rounded-b-xl border border-base-content/10"
           aria-hidden="true"
@@ -27,15 +29,16 @@
 
       <div>
         <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
-          {@event.series}
+          {@event.event_series.name}
         </p>
         <h1 class="mt-4 font-display text-4xl leading-[1.1] md:text-5xl">{@event.title}</h1>
 
-        <p class="mt-8 font-display text-2xl text-gold">{format_date(@event.date)}</p>
+        <!--<p class="mt-8 font-display text-2xl text-gold">{format_date(@event.date)}</p>-->
         <p class="mt-1 text-muted">
-          {if @past?, do: "Einlass war ab", else: "Einlass ab"} {format_time(@event.time)} Uhr
+          {if @event.past?, do: "Einlass war ab", else: "Einlass ab"}
+          <!--{format_time(@event.time)}--> Uhr
         </p>
-        <p :if={@past?} class="mt-2 text-sm italic text-muted">
+        <p :if={@event.past?} class="mt-2 text-sm italic text-muted">
           Dieser Abend liegt hinter uns.
         </p>
 
@@ -43,7 +46,7 @@
 
         <div class="mt-10 flex flex-wrap items-center gap-4">
           <a
-            :if={!@past?}
+            :if={!@event.past?}
             href="#reservieren"
             class="rounded-full bg-primary px-8 py-3 text-[15px] tracking-wide text-primary-content transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
@@ -61,6 +64,7 @@
     <!-- ========== END EVENT ========== -->
 
     <!-- ========== RESERVATION ========== -->
+    <!--
     <section :if={!@past?} id="reservieren" class="scroll-mt-24 pt-20 md:pt-28">
       <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
@@ -81,9 +85,11 @@
         <.reservation_box event={@event} member={@current_member} />
       </div>
     </section>
+    -->
     <!-- ========== END RESERVATION ========== -->
 
     <!-- ========== GÄSTELISTE ========== -->
+    <!--
     <section id="gaeste" class="scroll-mt-24 pt-20 md:pt-28">
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
@@ -107,9 +113,11 @@
         Aus Diskretion zeigen wir nur Mitgliedsnamen — nie mehr.
       </p>
     </section>
+    -->
     <!-- ========== END GÄSTELISTE ========== -->
 
     <!-- ========== STIMMEN ZUR SERIE ========== -->
+    <!--
     <section class="pt-20 md:pt-28">
       <div class="max-w-2xl">
         <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Stimmen</p>
@@ -138,6 +146,7 @@
         um diesen Abend zu bewerten.
       </p>
     </section>
+    -->
     <!-- ========== END STIMMEN ========== -->
   </main>
 </Layouts.app>

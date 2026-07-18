@@ -24,7 +24,12 @@ config :ash,
   bulk_actions_default_to_errors?: true,
   transaction_rollback_on_error?: true,
   redact_sensitive_values_in_errors?: true,
-  known_types: [AshPostgres.Timestamptz, AshPostgres.TimestamptzUsec]
+  known_types: [AshPostgres.Timestamptz, AshPostgres.TimestamptzUsec],
+  custom_expressions: [Orangerie.Expressions.StartOfMonth, Orangerie.Expressions.EndOfMonth]
+
+config :localize,
+  default_locale: :de,
+  supported_locales: [:de, :fr, :en]
 
 config :spark,
   formatter: [

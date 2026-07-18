@@ -46,6 +46,7 @@ defmodule Orangerie.MixProject do
       {:ash_postgres, "~> 2.0"},
       {:ash_phoenix, "~> 2.0"},
       {:ash, "~> 3.0"},
+      {:mix_test_interactive, "~> 5.1", only: [:dev, :test], runtime: false},
       {:igniter, "~> 0.6", only: [:dev, :test]},
       {:phoenix, "~> 1.8.9"},
       {:phoenix_ecto, "~> 4.5"},
@@ -73,7 +74,8 @@ defmodule Orangerie.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:slugify, "~> 1.3"}
+      {:slugify, "~> 1.3"},
+      {:localize, "~> 0.47"}
     ]
   end
 

@@ -20,10 +20,15 @@ defmodule OrangerieWeb.Router do
     get "/", PageController, :home
     get "/haus", ClubPageController, :index
     get "/haus/:slug", ClubPageController, :show
-    get "/events", EventController, :index
-    get "/events/:id", EventController, :show
+    get "/events-old", EventController, :index
+    # get "/events/:id", EventController, :show
     post "/events/:id/reserve", EventController, :reserve
     post "/events/:id/review", EventController, :review
+
+    live_session :default do
+      live "/events", Live.Events.Index
+      live "/events/:slug", Live.Events.Show
+    end
   end
 
   # Other scopes may use custom stacks.

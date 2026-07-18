@@ -17,6 +17,7 @@ RUN mix deps.get --only prod
 
 COPY config config
 RUN mix deps.compile
+RUN mix localize.download_locales
 
 COPY assets assets
 COPY priv priv

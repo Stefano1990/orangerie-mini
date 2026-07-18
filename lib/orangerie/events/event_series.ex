@@ -2,7 +2,13 @@ defmodule Orangerie.Events.EventSeries do
   use Ash.Resource,
     otp_app: :orangerie,
     domain: Orangerie.Events,
-    data_layer: AshPostgres.DataLayer
+    data_layer: AshPostgres.DataLayer,
+    extensions: [AshAdmin.Resource]
+
+  admin do
+    label_field :slug
+    relationship_display_fields [:slug]
+  end
 
   postgres do
     table "event_series"
@@ -24,25 +30,18 @@ defmodule Orangerie.Events.EventSeries do
     end
   end
 
-  attributes do
-    attribute :slug, :string do
-      primary_key? true
-      allow_nil? false
-    end
-
-    attribute :name, Orangerie.Embedded.TranslatedField do
-      allow_nil? false
-    end
-
-    attribute :allowed_profile_types, {:array, Orangerie.Enums.ProfileType} do
-      # constraints [
-      #   one_of: [:m, :f, :mf, :mm, :ff]
-      # ]
-      allow_nil? false
-    end
+  changes do
+    change {Orangerie.Changes.Slugify, attribute: :name}, only_when_valid?: true
   end
 
-  changes do
-    change {Orangerie.Changes.Slugify, attribute: :name}
+  attributes do
+    uuid_primary_key :id
+    attribute :slug, :string, allow_nil?: false
+    attribute :name, Orangerie.Embedded.TranslatedField, allow_nil?: false
+    attribute :allowed_profile_types, {:array, Orangerie.Enums.ProfileType}, allow_nil?: false
+  end
+
+  identities do
+    identity :unique_slug, [:slug]
   end
 end

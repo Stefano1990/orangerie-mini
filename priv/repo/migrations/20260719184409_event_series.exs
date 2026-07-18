@@ -1,4 +1,4 @@
-defmodule Orangerie.Repo.Migrations.MigrateResources2 do
+defmodule Orangerie.Repo.Migrations.EventSeries do
   @moduledoc """
   Updates resources based on their most recent snapshots.
 
@@ -9,13 +9,13 @@ defmodule Orangerie.Repo.Migrations.MigrateResources2 do
 
   def up do
     alter table(:event_series) do
-      add :name, :map, null: false
+      modify :id, :uuid, default: fragment("gen_random_uuid()")
     end
   end
 
   def down do
     alter table(:event_series) do
-      remove :name
+      modify :id, :uuid, default: fragment("uuid_generate_v7()")
     end
   end
 end
