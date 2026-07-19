@@ -2,6 +2,7 @@
    https://tailwindcss.com/docs/configuration */
 
 @import "tailwindcss" source(none);
+@source "../../deps/ash_authentication_phoenix";
 @import "phoenix-colocated/orangerie/colocated.css";
 /* Preline UI variants (vendored, flattened — see assets/vendor/preline-variants.css) */
 @import "../vendor/preline-variants.css";

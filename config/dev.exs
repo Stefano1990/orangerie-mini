@@ -55,7 +55,7 @@ config :orangerie, OrangerieWeb.Endpoint,
 # different ports.
 
 # Enable dev routes for dashboard and mailbox
-config :orangerie, dev_routes: true
+config :orangerie, dev_routes: true, token_signing_secret: "A2+ExBbJ6TmArdLW1vlP+8+9wRAgWXAu"
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :default_formatter, format: "[$level] $message\n"

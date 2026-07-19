@@ -1,4 +1,6 @@
 import Config
+config :orangerie, token_signing_secret: "k10pcdz0W7uN3ujMIrVNcSUbLbTPzypt"
+config :bcrypt_elixir, log_rounds: 1
 config :ash, policies: [show_policy_breakdowns?: true], disable_async?: true
 
 # Configure your database

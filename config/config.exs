@@ -36,6 +36,9 @@ config :spark,
     remove_parens?: true,
     "Ash.Resource": [
       section_order: [
+        :authentication,
+        :token,
+        :user_identity,
         :admin,
         :postgres,
         :resource,
@@ -62,7 +65,8 @@ config :spark,
 config :orangerie,
   ecto_repos: [Orangerie.Repo],
   generators: [timestamp_type: :utc_datetime],
-  ash_domains: [Orangerie.Events]
+  ash_domains: [Orangerie.Accounts, Orangerie.Events],
+  ash_authentication: [return_error_on_invalid_magic_link_token?: true]
 
 # Configure the endpoint
 config :orangerie, OrangerieWeb.Endpoint,

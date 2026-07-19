@@ -10,7 +10,7 @@ defmodule Orangerie.Test.Events.Resources.EvenTTest do
       })
 
     valid_params = %{
-      event_series: event_series.slug,
+      event_series: event_series.id,
       title: %{
         de: "foobar title",
         fr: "foobaz title"

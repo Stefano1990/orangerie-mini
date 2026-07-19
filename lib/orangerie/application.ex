@@ -15,7 +15,8 @@ defmodule Orangerie.Application do
       # Start a worker by calling: Orangerie.Worker.start_link(arg)
       # {Orangerie.Worker, arg},
       # Start to serve requests, typically the last entry
-      OrangerieWeb.Endpoint
+      OrangerieWeb.Endpoint,
+      {AshAuthentication.Supervisor, [otp_app: :orangerie]}
     ]
 
     # See https://elixir.hexdocs.pm/Supervisor.html
