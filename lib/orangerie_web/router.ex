@@ -52,6 +52,10 @@ defmodule OrangerieWeb.Router do
     live_session :default do
       live "/events", Live.Events.Index
       live "/events/:slug", Live.Events.Show
+
+      live "/anmelden", Live.Auth.SignIn
+      live "/registrieren", Live.Auth.SignUp
+      live "/passwort-vergessen", Live.Auth.ResetPassword
     end
 
     auth_routes AuthController, Orangerie.Accounts.User, path: "/auth"

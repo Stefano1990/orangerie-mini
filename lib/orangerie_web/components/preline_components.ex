@@ -57,7 +57,7 @@ defmodule OrangerieWeb.Components.PrelineComponents do
               <div class="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 before:block before:absolute before:top-1/2 before:-inset-s-px before:w-px before:h-4 before:bg-base-300 before:-translate-y-1/2">
                 <a
                   class="p-2 px-4 w-full flex items-center justify-center rounded-full border border-primary/40 text-sm text-primary hover:bg-primary hover:text-primary-content focus:outline-hidden focus:bg-primary focus:text-primary-content transition-colors"
-                  href="#"
+                  href={~p"/anmelden"}
                 >
                   <.icon name="user" class="shrink-0 size-4 me-3 md:me-2" /> Anmelden
                 </a>
@@ -174,6 +174,76 @@ defmodule OrangerieWeb.Components.PrelineComponents do
   end
 
   @doc """
+  Renders a labelled text input in the Preline input style, restyled with the
+  Orangerie tokens. The optional `label_action` slot renders flush right in
+  the label row (e.g. a "Passwort vergessen?" link).
+  """
+  attr :id, :string, required: true
+  attr :name, :string, required: true
+  attr :label, :string, required: true
+  attr :type, :string, default: "text"
+  attr :rest, :global, include: ~w(autocomplete placeholder required inputmode readonly disabled)
+  slot :label_action
+
+  def form_input(assigns) do
+    ~H"""
+    <div>
+      <div class="mb-2 flex items-baseline justify-between gap-4">
+        <label for={@id} class="block text-sm">{@label}</label>
+        {render_slot(@label_action)}
+      </div>
+      <input type={@type} id={@id} name={@name} class={input_classes()} {@rest} />
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a labelled password input with Preline's toggle-password plugin:
+  a trailing eye button switches the field between hidden and visible.
+  Takes the same `label_action` slot as `form_input/1`.
+  """
+  attr :id, :string, required: true
+  attr :name, :string, required: true
+  attr :label, :string, required: true
+  attr :rest, :global, include: ~w(autocomplete placeholder required readonly disabled)
+  slot :label_action
+
+  def form_password_input(assigns) do
+    assigns = assign(assigns, :toggle_opts, ~s({"target": "##{assigns.id}"}))
+
+    ~H"""
+    <div>
+      <div class="mb-2 flex items-baseline justify-between gap-4">
+        <label for={@id} class="block text-sm">{@label}</label>
+        {render_slot(@label_action)}
+      </div>
+      <div class="relative">
+        <input
+          type="password"
+          id={@id}
+          name={@name}
+          class={[input_classes(), "pe-12"]}
+          {@rest}
+        />
+        <button
+          type="button"
+          data-hs-toggle-password={@toggle_opts}
+          class="absolute inset-y-0 end-0 z-10 flex cursor-pointer items-center px-4 text-muted transition-colors hover:text-primary focus:text-primary focus:outline-hidden"
+          aria-label="Passwort anzeigen oder verbergen"
+        >
+          <.icon name="eye" class="size-4 shrink-0 hs-password-active:hidden" />
+          <.icon name="eye-off" class="hidden size-4 shrink-0 hs-password-active:block" />
+        </button>
+      </div>
+    </div>
+    """
+  end
+
+  defp input_classes do
+    "block w-full rounded-lg border border-base-300 bg-base-100 px-4 py-3 text-[15px] placeholder:text-muted/50 transition-colors focus:border-gold focus:ring-1 focus:ring-gold focus:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+  end
+
+  @doc """
   Renders one of the inline (lucide-style) icons used by the header.
   """
   attr :name, :string, required: true
@@ -217,6 +287,26 @@ defmodule OrangerieWeb.Components.PrelineComponents do
         <% "map-pin" -> %>
           <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
           <circle cx="12" cy="10" r="3" />
+        <% "lock" -> %>
+          <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        <% "sparkles" -> %>
+          <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+          <path d="M20 3v4" />
+          <path d="M22 5h-4" />
+          <path d="M4 17v2" />
+          <path d="M5 18H3" />
+        <% "mail" -> %>
+          <rect width="20" height="16" x="2" y="4" rx="2" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        <% "eye" -> %>
+          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+          <circle cx="12" cy="12" r="3" />
+        <% "eye-off" -> %>
+          <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+          <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+          <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+          <path d="m2 2 20 20" />
         <% "menu" -> %>
           <line x1="3" x2="21" y1="6" y2="6" />
           <line x1="3" x2="21" y1="12" y2="12" />
