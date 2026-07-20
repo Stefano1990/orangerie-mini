@@ -53,21 +53,24 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
             role="tabpanel"
             aria-labelledby="sign-in-tab-password"
           >
-            <form id="sign-in-password-form" class="mt-8 space-y-6">
-              <Preline.form_input
-                id="sign-in-email"
-                name="email"
+            <.form
+              for={@sign_in_with_password_form}
+              class="mt-8 space-y-6"
+              phx-submit="sign-in-with-password"
+            >
+              <Preline.input
+                field={@sign_in_with_password_form[:email]}
                 type="email"
                 label="E-Mail"
                 placeholder="name@beispiel.ch"
                 autocomplete="email"
                 required
               />
-              <Preline.form_password_input
-                id="sign-in-password"
-                name="password"
+              <Preline.input
+                field={@sign_in_with_password_form[:password]}
                 label="Passwort"
                 autocomplete="current-password"
+                type="password"
                 required
               >
                 <:label_action>
@@ -78,14 +81,14 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
                     Passwort vergessen?
                   </a>
                 </:label_action>
-              </Preline.form_password_input>
+              </Preline.input>
               <button
                 type="submit"
                 class="w-full cursor-pointer rounded-full bg-primary px-8 py-3 text-[15px] tracking-wide text-primary-content shadow-lg shadow-primary/40 transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
               >
                 Anmelden
               </button>
-            </form>
+            </.form>
           </div>
 
           <div
@@ -94,6 +97,7 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
             role="tabpanel"
             aria-labelledby="sign-in-tab-magic-link"
           >
+            <!--
             <form id="sign-in-magic-link-form" class="mt-8 space-y-6">
               <Preline.form_input
                 id="sign-in-magic-link-email"
@@ -116,6 +120,7 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
                 Link senden
               </button>
             </form>
+            -->
           </div>
 
           <p class="mt-10 border-t border-base-300 pt-6 text-center text-sm text-muted">
@@ -164,6 +169,38 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, page_title: "Anmelden")}
+    sign_in_with_password_form =
+      Orangerie.Accounts.form_to_sign_in_with_password(
+        context: %{
+          token_type: :sign_in
+        }
+      )
+      |> to_form()
+
+    socket =
+      assign(socket,
+        page_title: "Anmelden",
+        sign_in_with_password_form: sign_in_with_password_form
+      )
+
+    {:ok, socket}
+  end
+
+  @impl true
+  def handle_event("sign-in-with-password", %{"form" => form_params}, socket) do
+    case AshPhoenix.Form.submit(socket.assigns.sign_in_with_password_form,
+           params: form_params,
+           read_one?: true
+         ) do
+      {:ok, user} ->
+        {:noreply,
+         redirect(socket,
+           to:
+             ~p"/auth/user/password/sign_in_with_token?#{[token: user.__metadata__.token, return_to: ~p"/users/#{user.slug}"]}"
+         )}
+
+      {:error, form} ->
+        {:noreply, assign(socket, sign_in_with_password_form: form)}
+    end
   end
 end

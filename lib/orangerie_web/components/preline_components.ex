@@ -173,42 +173,45 @@ defmodule OrangerieWeb.Components.PrelineComponents do
     """
   end
 
-  @doc """
-  Renders a labelled text input in the Preline input style, restyled with the
-  Orangerie tokens. The optional `label_action` slot renders flush right in
-  the label row (e.g. a "Passwort vergessen?" link).
-  """
-  attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :label, :string, required: true
-  attr :type, :string, default: "text"
-  attr :rest, :global, include: ~w(autocomplete placeholder required inputmode readonly disabled)
+  attr :id, :any, default: nil
+  attr :name, :any
+  attr :label, :string, default: nil
+  attr :value, :any
+
+  attr :type, :string,
+    default: "text",
+    values: ~w(checkbox color date datetime-local email file month number password
+               search select tel text textarea time url week hidden)
+
+  attr :field, Phoenix.HTML.FormField,
+    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+
+  attr :errors, :list, default: []
+  attr :checked, :boolean, doc: "the checked flag for checkbox inputs"
+  attr :prompt, :string, default: nil, doc: "the prompt for select inputs"
+  attr :options, :list, doc: "the options to pass to Phoenix.HTML.Form.options_for_select/2"
+  attr :multiple, :boolean, default: false, doc: "the multiple flag for select inputs"
+  attr :class, :any, default: nil, doc: "the input class to use over defaults"
+  attr :error_class, :any, default: nil, doc: "the input error class to use over defaults"
+
+  attr :rest, :global,
+    include: ~w(accept autocomplete capture cols disabled form list max maxlength min minlength
+                multiple pattern placeholder readonly required rows size step)
+
   slot :label_action
 
-  def form_input(assigns) do
-    ~H"""
-    <div>
-      <div class="mb-2 flex items-baseline justify-between gap-4">
-        <label for={@id} class="block text-sm">{@label}</label>
-        {render_slot(@label_action)}
-      </div>
-      <input type={@type} id={@id} name={@name} class={input_classes()} {@rest} />
-    </div>
-    """
+  def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+    errors = if Phoenix.Component.used_input?(field), do: field.errors, else: []
+
+    assigns
+    |> assign(field: nil, id: assigns.id || field.id)
+    |> assign(:errors, Enum.map(errors, &translate_error(&1)))
+    |> assign_new(:name, fn -> if assigns.multiple, do: field.name <> "[]", else: field.name end)
+    |> assign_new(:value, fn -> field.value end)
+    |> input()
   end
 
-  @doc """
-  Renders a labelled password input with Preline's toggle-password plugin:
-  a trailing eye button switches the field between hidden and visible.
-  Takes the same `label_action` slot as `form_input/1`.
-  """
-  attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :label, :string, required: true
-  attr :rest, :global, include: ~w(autocomplete placeholder required readonly disabled)
-  slot :label_action
-
-  def form_password_input(assigns) do
+  def input(assigns = %{type: "password"}) do
     assigns = assign(assigns, :toggle_opts, ~s({"target": "##{assigns.id}"}))
 
     ~H"""
@@ -222,7 +225,9 @@ defmodule OrangerieWeb.Components.PrelineComponents do
           type="password"
           id={@id}
           name={@name}
-          class={[input_classes(), "pe-12"]}
+          class={[input_classes(@errors), "pe-12"]}
+          aria-invalid={@errors != [] && "true"}
+          aria-describedby={@errors != [] && "#{@id}-error"}
           {@rest}
         />
         <button
@@ -235,12 +240,49 @@ defmodule OrangerieWeb.Components.PrelineComponents do
           <.icon name="eye-off" class="hidden size-4 shrink-0 hs-password-active:block" />
         </button>
       </div>
+      <.error :for={msg <- @errors} id={"#{@id}-error"}>{msg}</.error>
     </div>
     """
   end
 
-  defp input_classes do
-    "block w-full rounded-lg border border-base-300 bg-base-100 px-4 py-3 text-[15px] placeholder:text-muted/50 transition-colors focus:border-gold focus:ring-1 focus:ring-gold focus:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+  def input(assigns) do
+    ~H"""
+    <div>
+      <div class="mb-2 flex items-baseline justify-between gap-4">
+        <label for={@id} class="block text-sm">{@label}</label>
+        {render_slot(@label_action)}
+      </div>
+      <div class="relative">
+        <input
+          type={@type}
+          id={@id}
+          name={@name}
+          class={[input_classes(@errors), @errors != [] && "pe-11"]}
+          aria-invalid={@errors != [] && "true"}
+          aria-describedby={@errors != [] && "#{@id}-error"}
+          {@rest}
+        />
+        <div
+          :if={@errors != []}
+          class="pointer-events-none absolute inset-y-0 end-0 flex items-center pe-3"
+        >
+          <.icon name="circle-alert" class="size-4 shrink-0 text-red-400" />
+        </div>
+      </div>
+      <.error :for={msg <- @errors} id={"#{@id}-error"}>{msg}</.error>
+    </div>
+    """
+  end
+
+  defp input_classes(errors) do
+    [
+      "block w-full rounded-lg border bg-base-100 px-4 py-3 text-[15px] placeholder:text-muted/50 transition-colors focus:ring-1 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50",
+      if errors == [] do
+        "border-base-300 focus:border-gold focus:ring-gold"
+      else
+        "border-red-400 focus:border-red-400 focus:ring-red-400"
+      end
+    ]
   end
 
   @doc """
@@ -314,8 +356,53 @@ defmodule OrangerieWeb.Components.PrelineComponents do
         <% "close" -> %>
           <path d="M18 6 6 18" />
           <path d="m6 6 12 12" />
+        <% "circle-alert" -> %>
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" x2="12" y1="8" y2="12" />
+          <line x1="12" x2="12.01" y1="16" y2="16" />
       <% end %>
     </svg>
+    """
+  end
+
+  @doc """
+  Translates an error message using gettext.
+  """
+  def translate_error({msg, opts}) do
+    # When using gettext, we typically pass the strings we want
+    # to translate as a static argument:
+    #
+    #     # Translate the number of files with plural rules
+    #     dngettext("errors", "1 file", "%{count} files", count)
+    #
+    # However the error messages in our forms and APIs are generated
+    # dynamically, so we need to translate them by calling Gettext
+    # with our gettext backend as first argument. Translations are
+    # available in the errors.po file (as we use the "errors" domain).
+    if count = opts[:count] do
+      Gettext.dngettext(OrangerieWeb.Gettext, "errors", msg, msg, count, opts)
+    else
+      Gettext.dgettext(OrangerieWeb.Gettext, "errors", msg, opts)
+    end
+  end
+
+  @doc """
+  Translates the errors for a field from a keyword list of errors.
+  """
+  def translate_errors(errors, field) when is_list(errors) do
+    for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
+  end
+
+  # Helper used by inputs to generate form errors
+  attr :id, :string, default: nil
+  slot :inner_block, required: true
+
+  defp error(assigns) do
+    ~H"""
+    <p id={@id} class="mt-2 flex gap-2 items-center text-sm text-red-400">
+      <.icon name="circle-alert" class="size-5" />
+      {render_slot(@inner_block)}
+    </p>
     """
   end
 end

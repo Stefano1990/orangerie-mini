@@ -19,7 +19,8 @@ defmodule OrangerieWeb.Live.Auth.ResetPassword do
           </p>
 
           <form id="reset-password-form" class="mt-10 space-y-6">
-            <Preline.form_input
+            <!--
+            <Preline.input
               id="reset-password-email"
               name="email"
               type="email"
@@ -38,6 +39,7 @@ defmodule OrangerieWeb.Live.Auth.ResetPassword do
             >
               Link anfordern
             </button>
+            -->
           </form>
 
           <p class="mt-10 border-t border-base-300 pt-6 text-center text-sm text-muted">

@@ -206,6 +206,8 @@ defmodule Orangerie.Accounts.User do
         sensitive? true
       end
 
+      accept [:username]
+
       # Sets the email from the argument
       change set_attribute(:email, arg(:email))
 
@@ -265,6 +267,8 @@ defmodule Orangerie.Accounts.User do
 
       # Generates an authentication token for the user
       change AshAuthentication.GenerateTokenChange
+
+      require_atomic? false
     end
   end
 
@@ -272,6 +276,30 @@ defmodule Orangerie.Accounts.User do
     bypass AshAuthentication.Checks.AshAuthenticationInteraction do
       authorize_if always()
     end
+
+    policy action(:register_with_password) do
+      authorize_if actor_absent()
+    end
+
+    policy action(:sign_in_with_password) do
+      authorize_if actor_absent()
+    end
+
+    policy action(:read) do
+      authorize_if actor_present()
+    end
+  end
+
+  changes do
+    change {Orangerie.Changes.Slugify, attribute: :username}, only_when_valid?: true
+  end
+
+  validations do
+    validate match(:username, "^[0-9a-z-_ ]+$")
+  end
+
+  validations do
+    validate match(:username, "^[0-9a-z-_ ]+$")
   end
 
   attributes do
@@ -287,9 +315,20 @@ defmodule Orangerie.Accounts.User do
     end
 
     attribute :confirmed_at, :utc_datetime_usec
+
+    attribute :username, :string do
+      allow_nil? false
+      constraints min_length: 3, max_length: 32
+    end
+
+    attribute :slug, :ci_string do
+      allow_nil? false
+    end
   end
 
   identities do
     identity :unique_email, [:email]
+    identity :unique_username, [:username]
+    identity :unique_slug, [:slug]
   end
 end

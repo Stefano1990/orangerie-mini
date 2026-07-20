@@ -35,6 +35,7 @@ defmodule OrangerieWeb.Router do
       #
       # If an authenticated user must *not* be present:
       # on_mount {OrangerieWeb.LiveUserAuth, :live_no_user}
+      live "/users/:slug", Live.Users.Update
     end
   end
 
@@ -56,6 +57,9 @@ defmodule OrangerieWeb.Router do
       live "/anmelden", Live.Auth.SignIn
       live "/registrieren", Live.Auth.SignUp
       live "/passwort-vergessen", Live.Auth.ResetPassword
+    end
+
+    live_session :signed_in, on_mount: [{OrangerieWeb.LiveUserAuth, :live_user_required}] do
     end
 
     auth_routes AuthController, Orangerie.Accounts.User, path: "/auth"

@@ -19,28 +19,37 @@ defmodule OrangerieWeb.Live.Auth.SignUp do
             Orangerie.
           </p>
 
-          <form id="sign-up-form" class="mt-10 space-y-6">
-            <Preline.form_input
-              id="sign-up-email"
-              name="email"
+          <.form
+            for={@register_form}
+            class="mt-10 space-y-6"
+            phx-change="validate"
+            phx-submit="submit"
+          >
+            <Preline.input
+              field={@register_form[:email]}
               type="email"
               label="E-Mail"
               placeholder="name@beispiel.ch"
               autocomplete="email"
               required
             />
-            <Preline.form_password_input
-              id="sign-up-password"
-              name="password"
+            <Preline.input
+              field={@register_form[:username]}
+              label="Username"
+              required
+            />
+            <Preline.input
+              field={@register_form[:password]}
               label="Passwort"
               autocomplete="new-password"
               required
+              type="password"
             />
-            <Preline.form_password_input
-              id="sign-up-password-confirmation"
-              name="password_confirmation"
+            <Preline.input
+              field={@register_form[:password_confirmation]}
               label="Passwort bestätigen"
               autocomplete="new-password"
+              type="password"
               required
             />
             <p class="flex items-start gap-2.5 text-sm leading-relaxed text-gold">
@@ -54,7 +63,7 @@ defmodule OrangerieWeb.Live.Auth.SignUp do
             >
               Konto erstellen
             </button>
-          </form>
+          </.form>
 
           <p class="mt-6 text-center text-xs uppercase tracking-[0.2em] text-muted/80">
             Zutritt ab 18 Jahren · Elegante Abendgarderobe
@@ -106,6 +115,33 @@ defmodule OrangerieWeb.Live.Auth.SignUp do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, page_title: "Registrieren")}
+    register_form = Orangerie.Accounts.form_to_register_user_with_password()
+
+    socket =
+      assign(
+        socket,
+        register_form: register_form |> to_form(),
+        page_title: "Registrieren"
+      )
+
+    {:ok, socket}
+  end
+
+  @impl true
+  def handle_event("validate", %{"form" => form_params}, socket) do
+    form = AshPhoenix.Form.validate(socket.assigns.register_form, form_params) |> to_form()
+    {:noreply, assign(socket, register_form: form)}
+  end
+
+  @impl true
+  def handle_event("submit", %{"form" => form_params}, socket) do
+    case AshPhoenix.Form.submit(socket.assigns.register_form, params: form_params) do
+      {:ok, user} ->
+        dbg(user)
+        {:noreply, socket}
+
+      {:error, form} ->
+        {:noreply, assign(socket, register_form: form)}
+    end
   end
 end
