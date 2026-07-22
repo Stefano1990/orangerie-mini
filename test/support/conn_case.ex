@@ -28,6 +28,8 @@ defmodule OrangerieWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import OrangerieWeb.ConnCase
+
+      import PhoenixTest
     end
   end
 

@@ -3,7 +3,7 @@ defmodule OrangerieWeb.AuthController do
   use AshAuthentication.Phoenix.Controller
 
   def success(conn, activity, user, _token) do
-    return_to = get_session(conn, :return_to) || ~p"/"
+    return_to = get_session(conn, :return_to) || ~p"/users/#{user.slug}"
 
     message =
       case activity do
@@ -60,5 +60,14 @@ defmodule OrangerieWeb.AuthController do
     |> clear_session(:orangerie)
     |> put_flash(:info, "You are now signed out")
     |> redirect(to: return_to)
+  end
+
+  def destroy(conn, _params) do
+    Orangerie.Accounts.destroy_user!(conn.assigns.current_user, actor: conn.assigns.current_user)
+
+    conn
+    |> clear_session(:orangerie)
+    |> put_flash(:info, "Your account has been deleted")
+    |> redirect(to: ~p"/")
   end
 end

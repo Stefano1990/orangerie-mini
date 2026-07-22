@@ -12,14 +12,15 @@ defmodule OrangerieWeb.Live.Auth.SignUp do
           <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
             Mitglied werden
           </p>
-          <h1 class="mt-4 font-display text-4xl md:text-5xl">Treten Sie ein.</h1>
+          <h1 class="mt-4 font-display text-4xl md:text-5xl">Tritt ein.</h1>
           <p class="mt-4 leading-relaxed text-muted">
-            Ihr Konto für Reservationen und Neuigkeiten aus dem Haus. Was Sie
-            uns anvertrauen, bleibt bei uns — diskret wie alles in der
+            Dein Konto für Reservationen und Neuigkeiten aus dem Haus. Was du
+            uns anvertraust, bleibt bei uns — diskret wie alles in der
             Orangerie.
           </p>
 
           <.form
+            id="sign-up-form"
             for={@register_form}
             class="mt-10 space-y-6"
             phx-change="validate"
@@ -54,15 +55,12 @@ defmodule OrangerieWeb.Live.Auth.SignUp do
             />
             <p class="flex items-start gap-2.5 text-sm leading-relaxed text-gold">
               <Preline.icon name="mail" class="mt-0.5 size-4 shrink-0" />
-              Nach der Registration erhalten Sie eine E-Mail, um Ihre Adresse
+              Nach der Registration erhältst du eine E-Mail, um deine Adresse
               zu bestätigen.
             </p>
-            <button
-              type="submit"
-              class="w-full cursor-pointer rounded-full bg-primary px-8 py-3 text-[15px] tracking-wide text-primary-content shadow-lg shadow-primary/40 transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-            >
+            <Preline.button type="submit" class="w-full">
               Konto erstellen
-            </button>
+            </Preline.button>
           </.form>
 
           <p class="mt-6 text-center text-xs uppercase tracking-[0.2em] text-muted/80">
@@ -136,8 +134,12 @@ defmodule OrangerieWeb.Live.Auth.SignUp do
   @impl true
   def handle_event("submit", %{"form" => form_params}, socket) do
     case AshPhoenix.Form.submit(socket.assigns.register_form, params: form_params) do
-      {:ok, user} ->
-        dbg(user)
+      {:ok, _user} ->
+        socket =
+          socket
+          |> put_flash(:info, "Konto erstellt")
+          |> push_navigate(to: ~p"/")
+
         {:noreply, socket}
 
       {:error, form} ->

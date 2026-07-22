@@ -27,15 +27,13 @@ defmodule OrangerieWeb.Layouts do
   """
   attr :flash, :map, required: true, doc: "the map of flash messages"
 
-  attr :current_scope, :map,
-    default: nil,
-    doc: "the current [scope](https://phoenix.hexdocs.pm/scopes.html)"
+  attr :current_user, Orangerie.Accounts.User, default: nil
 
   slot :inner_block, required: true
 
   def app(assigns) do
     ~H"""
-    <OrangerieWeb.Components.PrelineComponents.header />
+    <OrangerieWeb.Components.PrelineComponents.header current_user={@current_user} />
 
     {render_slot(@inner_block)}
 
@@ -55,9 +53,13 @@ defmodule OrangerieWeb.Layouts do
 
   def flash_group(assigns) do
     ~H"""
-    <div id={@id} aria-live="polite">
-      <.flash kind={:info} flash={@flash} />
-      <.flash kind={:error} flash={@flash} />
+    <div
+      id={@id}
+      aria-live="polite"
+      class="fixed top-20 right-4 z-50 flex w-80 max-w-[calc(100vw-2rem)] flex-col gap-2 sm:w-96"
+    >
+      <.flash kind={:info} flash={@flash} auto_dismiss />
+      <.flash kind={:error} flash={@flash} auto_dismiss />
 
       <.flash
         id="client-error"

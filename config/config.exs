@@ -25,7 +25,8 @@ config :ash,
   transaction_rollback_on_error?: true,
   redact_sensitive_values_in_errors?: true,
   known_types: [AshPostgres.Timestamptz, AshPostgres.TimestamptzUsec],
-  custom_expressions: [Orangerie.Expressions.StartOfMonth, Orangerie.Expressions.EndOfMonth]
+  custom_expressions: [Orangerie.Expressions.StartOfMonth, Orangerie.Expressions.EndOfMonth],
+  custom_types: [type: Orangerie.Accounts.Types.Type]
 
 config :localize,
   default_locale: :de,

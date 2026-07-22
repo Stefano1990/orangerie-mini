@@ -58,7 +58,7 @@ defmodule OrangerieWeb.EventController do
       description:
         "Eine Nacht hinter venezianischen Masken: Apéro an der langen Bar, " <>
           "Dinner bei Kerzenlicht und um Mitternacht die grosse Show auf dem Catwalk. " <>
-          "Die Maske fällt erst, wenn Sie es wollen — oder gar nicht. Masken liegen " <>
+          "Die Maske fällt erst, wenn du es willst — oder gar nicht. Masken liegen " <>
           "am Empfang bereit, elegante Abendgarderobe in Schwarz ist Ehrensache."
     },
     "Dîner en Blanc" => %{
@@ -219,9 +219,9 @@ defmodule OrangerieWeb.EventController do
       true ->
         message =
           if drink_available?(event) do
-            "Reserviert — Ihr Willkommensdrink wartet an der Bar. Wir freuen uns auf Sie."
+            "Reserviert — dein Willkommensdrink wartet an der Bar. Wir freuen uns auf dich."
           else
-            "Reserviert. Wir freuen uns auf Sie."
+            "Reserviert. Wir freuen uns auf dich."
           end
 
         conn
@@ -330,19 +330,19 @@ defmodule OrangerieWeb.EventController do
 
       Date.compare(event.date, today) != :lt ->
         conn
-        |> put_flash(:error, "Bewerten können Sie einen Abend, sobald er hinter uns liegt.")
+        |> put_flash(:error, "Bewerten kannst du einen Abend, sobald er hinter uns liegt.")
         |> redirect(to: ~p"/events/#{event.id}")
 
       text == "" ->
         conn
-        |> put_flash(:error, "Ein paar Worte hätten wir gerne — Ihre Bewertung war noch leer.")
+        |> put_flash(:error, "Ein paar Worte hätten wir gerne — deine Bewertung war noch leer.")
         |> redirect(to: ~p"/events/#{event.id}")
 
       true ->
         conn
         |> put_flash(
           :info,
-          "Vielen Dank für Ihre Stimme! Sie erscheint nach einem kurzen Blick der Gastgeber."
+          "Vielen Dank für deine Stimme! Nach einem kurzen Blick der Gastgeber erscheint sie bei der Serie."
         )
         |> redirect(to: ~p"/events/#{event.id}")
     end

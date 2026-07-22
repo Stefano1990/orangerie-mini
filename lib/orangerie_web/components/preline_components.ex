@@ -13,6 +13,9 @@ defmodule OrangerieWeb.Components.PrelineComponents do
   @doc """
   Renders the classic Preline header/navbar.
   """
+
+  attr :current_user, Orangerie.Accounts.User, default: nil
+
   def header(assigns) do
     ~H"""
     <!-- ========== HEADER ========== -->
@@ -49,18 +52,27 @@ defmodule OrangerieWeb.Components.PrelineComponents do
             <div class="py-2 md:py-0 flex flex-col md:flex-row md:items-center md:justify-end gap-0.5 md:gap-1">
               <.haus_dropdown />
               <.nav_link href="/#abend" icon="wine">Der Abend</.nav_link>
-              <.nav_link href={~p"/events"} icon="calendar">Events</.nav_link>
+              <.nav_link navigate={~p"/events"} icon="calendar">Events</.nav_link>
               <.nav_link href="/#etikette" icon="heart">Etikette</.nav_link>
               <.nav_link href="/#kontakt" icon="map-pin">Kontakt</.nav_link>
 
               <!-- Button Group -->
               <div class="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 before:block before:absolute before:top-1/2 before:-inset-s-px before:w-px before:h-4 before:bg-base-300 before:-translate-y-1/2">
-                <a
-                  class="p-2 px-4 w-full flex items-center justify-center rounded-full border border-primary/40 text-sm text-primary hover:bg-primary hover:text-primary-content focus:outline-hidden focus:bg-primary focus:text-primary-content transition-colors"
-                  href={~p"/anmelden"}
-                >
-                  <.icon name="user" class="shrink-0 size-4 me-3 md:me-2" /> Anmelden
-                </a>
+                <%= if @current_user do %>
+                  <a
+                    class="p-2 px-4 w-full flex items-center justify-center rounded-full border border-primary/40 text-sm text-primary hover:bg-primary hover:text-primary-content focus:outline-hidden focus:bg-primary focus:text-primary-content transition-colors"
+                    href={~p"/users/#{@current_user.slug}"}
+                  >
+                    <.icon name="user" class="shrink-0 size-4 me-3 md:me-2" />{@current_user.username}
+                  </a>
+                <% else %>
+                  <a
+                    class="p-2 px-4 w-full flex items-center justify-center rounded-full border border-primary/40 text-sm text-primary hover:bg-primary hover:text-primary-content focus:outline-hidden focus:bg-primary focus:text-primary-content transition-colors"
+                    href={~p"/anmelden"}
+                  >
+                    <.icon name="user" class="shrink-0 size-4 me-3 md:me-2" /> Anmelden
+                  </a>
+                <% end %>
               </div>
               <!-- End Button Group -->
             </div>
@@ -150,26 +162,26 @@ defmodule OrangerieWeb.Components.PrelineComponents do
   @doc """
   A top-level navigation link with a leading icon (visible on mobile only).
   """
-  attr :href, :string, default: "#"
   attr :icon, :string, required: true
   attr :active, :boolean, default: false
+  attr :rest, :global, include: ~w(href navigate)
   slot :inner_block, required: true
 
   def nav_link(assigns) do
     ~H"""
-    <a
+    <.link
       class={[
         "p-2 flex items-center text-[15px] transition-colors focus:outline-hidden",
         @active &&
           "text-primary font-medium underline decoration-gold decoration-1 underline-offset-[6px]",
         !@active && "text-base-content/75 hover:text-primary focus:text-primary"
       ]}
-      href={@href}
       aria-current={@active && "page"}
+      {@rest}
     >
       <.icon name={@icon} class="shrink-0 size-4 me-3 md:me-2 block md:hidden" />
       {render_slot(@inner_block)}
-    </a>
+    </.link>
     """
   end
 
@@ -239,6 +251,35 @@ defmodule OrangerieWeb.Components.PrelineComponents do
           <.icon name="eye" class="size-4 shrink-0 hs-password-active:hidden" />
           <.icon name="eye-off" class="hidden size-4 shrink-0 hs-password-active:block" />
         </button>
+      </div>
+      <.error :for={msg <- @errors} id={"#{@id}-error"}>{msg}</.error>
+    </div>
+    """
+  end
+
+  def input(assigns = %{type: "select"}) do
+    ~H"""
+    <div>
+      <div class="mb-2 flex items-baseline justify-between gap-4">
+        <label for={@id} class="block text-sm">{@label}</label>
+        {render_slot(@label_action)}
+      </div>
+      <div class="relative">
+        <select
+          id={@id}
+          name={@name}
+          multiple={@multiple}
+          class={[input_classes(@errors), "cursor-pointer appearance-none pe-12"]}
+          aria-invalid={@errors != [] && "true"}
+          aria-describedby={@errors != [] && "#{@id}-error"}
+          {@rest}
+        >
+          <option :if={@prompt} value="">{@prompt}</option>
+          {Phoenix.HTML.Form.options_for_select(@options, @value)}
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center pe-4 text-muted">
+          <.icon name="chevron-down" class="size-4 shrink-0" />
+        </div>
       </div>
       <.error :for={msg <- @errors} id={"#{@id}-error"}>{msg}</.error>
     </div>
@@ -391,6 +432,37 @@ defmodule OrangerieWeb.Components.PrelineComponents do
   """
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
+  end
+
+  attr :style, :string, values: ~w(primary danger), default: "primary"
+  attr :rest, :global, include: ~w(type)
+  slot :inner_block, required: true
+
+  def button(assigns) do
+    colour_classes =
+      case assigns.style do
+        "primary" ->
+          "bg-primary text-primary-content shadow-primary/40 hover:bg-primary/90 focus-visible:outline-gold"
+
+        "danger" ->
+          "border border-red-400/60 text-red-400 hover:bg-red-400 hover:text-base-100 focus-visible:outline-red-400"
+      end
+
+    assigns = assign(assigns, colour_classes: colour_classes)
+
+    ~H"""
+    <button
+      type="submit"
+      class={[
+        "cursor-pointer rounded-full px-8 py-3 text-[15px] tracking-wide shadow-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2",
+        @colour_classes,
+        @rest[:class]
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </button>
+    """
   end
 
   # Helper used by inputs to generate form errors

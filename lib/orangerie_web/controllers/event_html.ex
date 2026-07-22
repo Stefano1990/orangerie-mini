@@ -206,7 +206,7 @@ defmodule OrangerieWeb.EventHTML do
             Für diesen Abend gilt das noch bis {format_datetime(@deadline)}.
           </span>
           <span :if={!@active}>
-            Für diesen Abend ist die Frist leider verstrichen — der nächste
+            Für diesen Abend ist die Frist leider verstrichen. Der nächste
             kommt bestimmt.
           </span>
         </p>
@@ -248,8 +248,8 @@ defmodule OrangerieWeb.EventHTML do
     >
       <p class="font-display text-2xl">Reservationen sind Mitgliedern vorbehalten.</p>
       <p class="mx-auto mt-3 max-w-sm leading-relaxed text-muted">
-        Melden Sie sich an, um Ihren Platz für diesen Abend zu reservieren —
-        oder lernen Sie das Haus als Mitglied kennen.
+        Melde dich an, um deinen Platz für diesen Abend zu reservieren —
+        oder lerne das Haus als Mitglied kennen.
       </p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
         <a
@@ -292,7 +292,7 @@ defmodule OrangerieWeb.EventHTML do
       </div>
 
       <fieldset class="mt-6">
-        <legend class="text-xs uppercase tracking-[0.2em] text-muted">Ihre Bewertung</legend>
+        <legend class="text-xs uppercase tracking-[0.2em] text-muted">Deine Bewertung</legend>
         <div class="mt-2 flex flex-row-reverse justify-end gap-1">
           <%= for n <- 5..1//-1 do %>
             <input
@@ -315,7 +315,7 @@ defmodule OrangerieWeb.EventHTML do
       </fieldset>
 
       <label class="mt-6 block">
-        <span class="text-xs uppercase tracking-[0.2em] text-muted">Ihre Worte</span>
+        <span class="text-xs uppercase tracking-[0.2em] text-muted">Deine Worte</span>
         <textarea
           name="review[text]"
           rows="4"
@@ -332,7 +332,7 @@ defmodule OrangerieWeb.EventHTML do
         Bewertung senden
       </button>
       <p class="mt-4 text-center text-xs text-muted">
-        Ihre Stimme erscheint bei den künftigen Abenden der Serie «{@event.series}».
+        Deine Stimme erscheint bei den künftigen Abenden der Serie «{@event.series}».
       </p>
     </.form>
     """

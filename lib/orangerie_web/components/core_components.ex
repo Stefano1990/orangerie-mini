@@ -50,6 +50,11 @@ defmodule OrangerieWeb.CoreComponents do
   attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
   attr :title, :string, default: nil
   attr :kind, :atom, values: [:info, :error], doc: "used for styling and flash lookup"
+
+  attr :auto_dismiss, :boolean,
+    default: false,
+    doc: "when true, the flash fades itself out after a short delay (pauses on hover)"
+
   attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
 
   slot :inner_block, doc: "the optional inner block that renders the flash message"
@@ -61,28 +66,62 @@ defmodule OrangerieWeb.CoreComponents do
     <div
       :if={msg = render_slot(@inner_block) || Phoenix.Flash.get(@flash, @kind)}
       id={@id}
-      phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
-      class="toast toast-top toast-end z-50"
+      aria-live={if @kind == :error, do: "assertive", else: "polite"}
+      phx-hook={@auto_dismiss && ".AutoDismiss"}
+      phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
+      class={[
+        "group pointer-events-auto w-full cursor-pointer select-none",
+        "flex items-start gap-3 rounded-xl border border-black/10 px-4 py-3.5",
+        "shadow-lg shadow-base-content/15 transition-shadow hover:shadow-xl",
+        "motion-safe:animate-flash-in",
+        @kind == :info && "bg-leaf-deep text-leaf-deep-content",
+        @kind == :error && "bg-primary text-primary-content"
+      ]}
       {@rest}
     >
-      <div class={[
-        "alert w-80 sm:w-96 max-w-80 sm:max-w-96 text-wrap",
-        @kind == :info && "alert-info",
-        @kind == :error && "alert-error"
-      ]}>
-        <.icon :if={@kind == :info} name="hero-information-circle" class="size-5 shrink-0" />
-        <.icon :if={@kind == :error} name="hero-exclamation-circle" class="size-5 shrink-0" />
-        <div>
-          <p :if={@title} class="font-semibold">{@title}</p>
-          <p>{msg}</p>
-        </div>
-        <div class="flex-1" />
-        <button type="button" class="group self-start cursor-pointer" aria-label={gettext("close")}>
-          <.icon name="hero-x-mark" class="size-5 opacity-40 group-hover:opacity-70" />
-        </button>
+      <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/15 shadow-sm">
+        <.icon
+          name={if @kind == :info, do: "hero-check", else: "hero-exclamation-triangle"}
+          class="size-4"
+        />
+      </span>
+      <div class="min-w-0 flex-1 pt-0.5">
+        <p :if={@title} class="font-display text-base leading-tight font-semibold">
+          {@title}
+        </p>
+        <p class="text-sm leading-snug break-words opacity-90">{msg}</p>
       </div>
+      <button
+        type="button"
+        class="mt-1 -mr-1 shrink-0 opacity-60 transition-opacity hover:opacity-100"
+        aria-label={gettext("close")}
+      >
+        <.icon name="hero-x-mark" class="size-4" />
+      </button>
     </div>
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".AutoDismiss">
+      export default {
+        mounted() {
+          this.schedule()
+          this.el.addEventListener("mouseenter", () => this.cancel())
+          this.el.addEventListener("mouseleave", () => this.schedule())
+        },
+        destroyed() {
+          this.cancel()
+        },
+        schedule() {
+          this.cancel()
+          this.timer = setTimeout(() => this.el.click(), 6000)
+        },
+        cancel() {
+          if (this.timer) {
+            clearTimeout(this.timer)
+            this.timer = null
+          }
+        }
+      }
+    </script>
     """
   end
 

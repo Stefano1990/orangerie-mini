@@ -1,4 +1,4 @@
-defmodule Orangerie.Repo.Migrations.MigrateResources1 do
+defmodule Orangerie.Repo.Migrations.ExtendUsers do
   @moduledoc """
   Updates resources based on their most recent snapshots.
 
@@ -10,7 +10,11 @@ defmodule Orangerie.Repo.Migrations.MigrateResources1 do
   def up do
     alter table(:users) do
       add :username, :text, null: false
+      add :slug, :citext, null: false
+      add :type, :text
     end
+
+    create unique_index(:users, [:slug], name: "users_unique_slug_index")
 
     create unique_index(:users, [:username], name: "users_unique_username_index")
   end
@@ -18,7 +22,11 @@ defmodule Orangerie.Repo.Migrations.MigrateResources1 do
   def down do
     drop_if_exists unique_index(:users, [:username], name: "users_unique_username_index")
 
+    drop_if_exists unique_index(:users, [:slug], name: "users_unique_slug_index")
+
     alter table(:users) do
+      remove :type
+      remove :slug
       remove :username
     end
   end

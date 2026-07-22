@@ -59,6 +59,30 @@
       "size": null,
       "source": "username",
       "type": "text"
+    },
+    {
+      "allow_nil?": false,
+      "default": "nil",
+      "generated?": false,
+      "precision": null,
+      "primary_key?": false,
+      "references": null,
+      "scale": null,
+      "size": null,
+      "source": "slug",
+      "type": "citext"
+    },
+    {
+      "allow_nil?": true,
+      "default": "nil",
+      "generated?": false,
+      "precision": null,
+      "primary_key?": false,
+      "references": null,
+      "scale": null,
+      "size": null,
+      "source": "type",
+      "type": "text"
     }
   ],
   "base_filter": null,
@@ -67,7 +91,7 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "06342DFE63FEACC7AFFEFB57FCB7582DCDB093F06D05565813993380E09C7114",
+  "hash": "964F0E20865E3E04A1E68BA6E5856029168DCF36946C3168111C7DB3179BF13D",
   "identities": [
     {
       "all_tenants?": false,
@@ -80,6 +104,20 @@
         }
       ],
       "name": "unique_email",
+      "nils_distinct?": true,
+      "where": null
+    },
+    {
+      "all_tenants?": false,
+      "base_filter": null,
+      "index_name": "users_unique_slug_index",
+      "keys": [
+        {
+          "type": "atom",
+          "value": "slug"
+        }
+      ],
+      "name": "unique_slug",
       "nils_distinct?": true,
       "where": null
     },

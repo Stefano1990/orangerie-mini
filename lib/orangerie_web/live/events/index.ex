@@ -3,10 +3,12 @@ defmodule OrangerieWeb.Live.Events.Index do
   alias Orangerie.Events
   alias Orangerie.Embedded.TranslatedField
 
+  on_mount {OrangerieWeb.LiveUserAuth, :live_user_optional}
+
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash}>
+    <Layouts.app flash={@flash} current_user={@current_user}>
       <main class="mx-auto max-w-6xl px-6 py-16 md:py-24">
         <!-- ========== DER LAUFENDE MONAT ========== -->
         <div class="max-w-2xl">
@@ -17,7 +19,7 @@ defmodule OrangerieWeb.Live.Events.Index do
             {Localize.Date.to_string!(@today, format: "MMM")} in der Orangerie.
           </h1>
           <p class="mt-5 text-lg leading-relaxed text-muted">
-            Donnerstag, Freitag, Samstag — drei Abende pro Woche, jeder mit eigenem
+            Donnerstag, Freitag, Samstag: drei Abende pro Woche, jeder mit eigenem
             Thema und eigener Gästeliste. Der ganze Monat auf einen Blick, auch die
             Abende, die schon Geschichte sind.
           </p>
@@ -42,7 +44,7 @@ defmodule OrangerieWeb.Live.Events.Index do
             <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Vorschau</p>
             <h2 class="mt-4 font-display text-3xl md:text-4xl">Weiter im Kalender.</h2>
             <p class="mt-4 leading-relaxed text-muted">
-              Wir publizieren unsere Abende mindestens sechs Monate im Voraus —
+              Wir publizieren unsere Abende mindestens sechs Monate im Voraus,
               ab dem nächsten Monat jeweils zum Aufklappen.
             </p>
           </div>
@@ -64,7 +66,7 @@ defmodule OrangerieWeb.Live.Events.Index do
             <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">Archiv</p>
             <h2 class="mt-4 font-display text-3xl md:text-4xl">Vergangene Abende.</h2>
             <p class="mt-4 leading-relaxed text-muted">
-              Was war, bleibt im Haus — aber die Abende selbst dürfen Sie gerne
+              Was war, bleibt im Haus. Die Abende selbst darfst du aber gerne
               noch einmal nachlesen.
             </p>
           </div>

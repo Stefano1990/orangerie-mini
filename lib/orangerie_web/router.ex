@@ -25,6 +25,8 @@ defmodule OrangerieWeb.Router do
     pipe_through :browser
 
     ash_authentication_live_session :authenticated_routes do
+      live "/events", Live.Events.Index
+      live "/events/:slug", Live.Events.Show
       # in each liveview, add one of the following at the top of the module:
       #
       # If an authenticated user must be present:
@@ -46,24 +48,18 @@ defmodule OrangerieWeb.Router do
     get "/haus", ClubPageController, :index
     get "/haus/:slug", ClubPageController, :show
     get "/events-old", EventController, :index
-    # get "/events/:id", EventController, :show
     post "/events/:id/reserve", EventController, :reserve
     post "/events/:id/review", EventController, :review
 
     live_session :default do
-      live "/events", Live.Events.Index
-      live "/events/:slug", Live.Events.Show
-
       live "/anmelden", Live.Auth.SignIn
       live "/registrieren", Live.Auth.SignUp
       live "/passwort-vergessen", Live.Auth.ResetPassword
     end
 
-    live_session :signed_in, on_mount: [{OrangerieWeb.LiveUserAuth, :live_user_required}] do
-    end
-
     auth_routes AuthController, Orangerie.Accounts.User, path: "/auth"
     sign_out_route AuthController
+    delete "/users/destroy", AuthController, :destroy
 
     # Remove these if you'd like to use your own authentication views
     sign_in_route register_path: "/register",

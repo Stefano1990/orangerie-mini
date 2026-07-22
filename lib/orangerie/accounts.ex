@@ -13,6 +13,8 @@ defmodule Orangerie.Accounts do
 
       define :sign_in_with_password
       define :get_user_by_slug, action: :read, get_by: [:slug]
+      define :update_user, action: :update
+      define :destroy_user, action: :destroy
     end
   end
 end

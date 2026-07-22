@@ -1,6 +1,5 @@
 defmodule OrangerieWeb.Live.Auth.ResetPassword do
   use OrangerieWeb, :live_view
-  alias OrangerieWeb.Components.PrelineComponents, as: Preline
 
   @impl true
   def render(assigns) do
@@ -14,12 +13,12 @@ defmodule OrangerieWeb.Live.Auth.ResetPassword do
           </p>
           <h1 class="mt-4 font-display text-4xl md:text-5xl">Halb so schlimm.</h1>
           <p class="mt-4 leading-relaxed text-muted">
-            Geben Sie die E-Mail-Adresse Ihres Kontos ein. Wir senden Ihnen
-            einen Link, mit dem Sie in Ruhe ein neues Passwort setzen.
+            Gib die E-Mail-Adresse deines Kontos ein. Wir senden dir
+            einen Link, mit dem du ein neues Passwort setzen kannst.
           </p>
 
+          <!--
           <form id="reset-password-form" class="mt-10 space-y-6">
-            <!--
             <Preline.input
               id="reset-password-email"
               name="email"
@@ -39,8 +38,8 @@ defmodule OrangerieWeb.Live.Auth.ResetPassword do
             >
               Link anfordern
             </button>
-            -->
           </form>
+            -->
 
           <p class="mt-10 border-t border-base-300 pt-6 text-center text-sm text-muted">
             Doch wieder eingefallen?

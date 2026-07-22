@@ -79,7 +79,8 @@ defmodule Orangerie.MixProject do
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
       {:slugify, "~> 1.3"},
-      {:localize, "~> 0.47"}
+      {:localize, "~> 0.47"},
+      {:phoenix_test, "~> 0.11.1", only: :test, runtime: false}
     ]
   end
 

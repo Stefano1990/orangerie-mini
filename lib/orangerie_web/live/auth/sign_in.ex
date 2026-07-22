@@ -14,8 +14,8 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
           </p>
           <h1 class="mt-4 font-display text-4xl md:text-5xl">Willkommen zurück.</h1>
           <p class="mt-4 leading-relaxed text-muted">
-            Der Abend beginnt hier: Melden Sie sich mit Ihrem Passwort an —
-            oder lassen Sie sich einen Magic Link an Ihre E-Mail senden.
+            Melde dich mit deinem Passwort an oder lass dir einen
+            Magic Link an deine E-Mail senden.
           </p>
 
           <nav
@@ -48,6 +48,13 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
             </button>
           </nav>
 
+          <div>
+            <h3><strong>testing</strong></h3>
+            <p>
+              Bitte mit "foobar@foobar.com" und "foobar123" einloggen.
+              <strong>Bitte den Benutzer nicht löcshen :)</strong>
+            </p>
+          </div>
           <div
             id="sign-in-panel-password"
             role="tabpanel"
@@ -65,6 +72,7 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
                 placeholder="name@beispiel.ch"
                 autocomplete="email"
                 required
+                tabindex="1"
               />
               <Preline.input
                 field={@sign_in_with_password_form[:password]}
@@ -72,6 +80,7 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
                 autocomplete="current-password"
                 type="password"
                 required
+                tabindex="2"
               >
                 <:label_action>
                   <a
@@ -82,12 +91,9 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
                   </a>
                 </:label_action>
               </Preline.input>
-              <button
-                type="submit"
-                class="w-full cursor-pointer rounded-full bg-primary px-8 py-3 text-[15px] tracking-wide text-primary-content shadow-lg shadow-primary/40 transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-              >
+              <Preline.button class="w-full" type="submit">
                 Anmelden
-              </button>
+              </Preline.button>
             </.form>
           </div>
 
@@ -110,8 +116,8 @@ defmodule OrangerieWeb.Live.Auth.SignIn do
               />
               <p class="flex items-start gap-2.5 text-sm leading-relaxed text-gold">
                 <Preline.icon name="mail" class="mt-0.5 size-4 shrink-0" />
-                Kein Passwort nötig — wir senden Ihnen einen einmaligen
-                Anmeldelink an Ihre E-Mail-Adresse.
+                Kein Passwort nötig: Wir senden dir einen einmaligen
+                Anmeldelink an deine E-Mail-Adresse.
               </p>
               <button
                 type="submit"

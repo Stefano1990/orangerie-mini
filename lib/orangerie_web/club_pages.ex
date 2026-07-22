@@ -162,7 +162,7 @@ defmodule OrangerieWeb.ClubPages do
       intro:
         "Sauna, Whirlpool und stille Ecken für später: Das Spa ist der " <>
           "leiseste Teil des Hauses. Frottée liegt bereit, der Rest bleibt " <>
-          "zwischen Ihnen und dem Abend.",
+          "zwischen dir und dem Abend.",
       sections: [],
       notes: %{
         title: "Warum keine Fotos?",

@@ -35,12 +35,28 @@
   --color-muted: #8a6248; /* secondary / muted umber text */
   --color-gold: #b07f3a; /* amber gold — fine accents */
   --color-leaf: #75814f; /* potted-palm green — botanical accent */
+  --color-leaf-deep: #57633a; /* deep foliage — solid surfaces (flash notices) */
+  --color-leaf-deep-content: #f6efdf; /* text on leaf-deep */
 
   /* Romantic type system: a script wordmark, a high-contrast display serif,
      and a warm book serif for body/UI. Faces are loaded in root.html.heex. */
   --font-sans: "EB Garamond", ui-serif, Georgia, "Times New Roman", serif;
   --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-script: "Parisienne", "Segoe Script", cursive;
+
+  /* Flash notices settle in like a note laid on the table. */
+  --animate-flash-in: flash-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes flash-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 /* Base surface + text colors, and light/dark token overrides driven by the
@@ -113,6 +129,8 @@ h4 {
   --color-muted: #c59d7f;
   --color-gold: #d9a457;
   --color-leaf: #96a066;
+  --color-leaf-deep: #647040;
+  --color-leaf-deep-content: #fbf2df;
 }
 
 /* Add variants based on LiveView classes */

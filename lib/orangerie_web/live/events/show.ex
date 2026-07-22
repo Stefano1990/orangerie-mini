@@ -2,10 +2,12 @@ defmodule OrangerieWeb.Live.Events.Show do
   use OrangerieWeb, :live_view
   alias Orangerie.Embedded.TranslatedField
 
+  on_mount {OrangerieWeb.LiveUserAuth, :live_user_optional}
+
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash}>
+    <Layouts.app flash={@flash} current_user={@current_user}>
       <main class="mx-auto max-w-6xl px-6 py-16 md:py-24">
         <a
           href={~p"/events"}
@@ -83,9 +85,9 @@ defmodule OrangerieWeb.Live.Events.Show do
               <p class="text-[11px] font-medium uppercase tracking-[0.35em] text-muted">
                 Reservation
               </p>
-              <h2 class="mt-4 font-display text-3xl md:text-4xl">Ihr Platz an diesem Abend.</h2>
+              <h2 class="mt-4 font-display text-3xl md:text-4xl">Dein Platz an diesem Abend.</h2>
               <p class="mt-4 max-w-xl leading-relaxed text-muted">
-                Eine Reservation genügt — für den Rest sorgt das Haus. Ihr Name
+                Eine Reservation genügt, für den Rest sorgt das Haus. Dein Name
                 erscheint danach auf der Gästeliste dieses Abends.
               </p>
 
@@ -121,7 +123,7 @@ defmodule OrangerieWeb.Live.Events.Show do
           </ul>
 
           <p class="mt-8 text-sm italic text-muted">
-            Aus Diskretion zeigen wir nur Mitgliedsnamen — nie mehr.
+            Aus Diskretion zeigen wir nur Mitgliedsnamen, nie mehr.
           </p>
         </section>
         -->
@@ -145,7 +147,7 @@ defmodule OrangerieWeb.Live.Events.Show do
           </div>
 
           <p :if={@reviews == []} class="mt-10 italic text-muted">
-            Noch keine Stimmen zu dieser Serie — vielleicht schreiben Sie die erste.
+            Noch keine Stimmen zu dieser Serie. Vielleicht schreibst du die erste.
           </p>
 
           <div :if={@past? && @current_member} class="mt-14">
@@ -153,7 +155,7 @@ defmodule OrangerieWeb.Live.Events.Show do
           </div>
 
           <p :if={@past? && is_nil(@current_member)} class="mt-10 text-sm text-muted">
-            <a href="#" class="text-primary transition-colors hover:underline">Melden Sie sich an</a>,
+            <a href="#" class="text-primary transition-colors hover:underline">Melde dich an</a>,
             um diesen Abend zu bewerten.
           </p>
         </section>
@@ -205,7 +207,7 @@ defmodule OrangerieWeb.Live.Events.Show do
             Für diesen Abend gilt das noch bis {Localize.DateTime.to_string!(@deadline)}.
           </span>
           <span :if={!@active}>
-            Für diesen Abend ist die Frist leider verstrichen — der nächste
+            Für diesen Abend ist die Frist leider verstrichen. Der nächste
             kommt bestimmt.
           </span>
         </p>

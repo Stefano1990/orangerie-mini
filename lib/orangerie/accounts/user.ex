@@ -270,6 +270,36 @@ defmodule Orangerie.Accounts.User do
 
       require_atomic? false
     end
+
+    update :update do
+      primary? true
+      accept [:type]
+
+      argument :password, :string do
+        description "The proposed password for the user, in plain text."
+        constraints min_length: 8
+        sensitive? true
+      end
+
+      argument :password_confirmation, :string do
+        description "The proposed password for the user (again), in plain text."
+        sensitive? true
+      end
+
+      validate present(:type)
+
+      validate {AshAuthentication.Strategy.Password.PasswordConfirmationValidation,
+                strategy_name: :password}, where: [present(:password)]
+
+      change {AshAuthentication.Strategy.Password.HashPasswordChange, strategy_name: :password},
+        where: [present(:password)]
+
+      require_atomic? false
+    end
+
+    destroy :destroy do
+      primary? true
+    end
   end
 
   policies do
@@ -288,14 +318,18 @@ defmodule Orangerie.Accounts.User do
     policy action(:read) do
       authorize_if actor_present()
     end
+
+    policy action(:update) do
+      authorize_if expr(id == ^actor(:id))
+    end
+
+    policy action(:destroy) do
+      authorize_if expr(id == ^actor(:id))
+    end
   end
 
   changes do
     change {Orangerie.Changes.Slugify, attribute: :username}, only_when_valid?: true
-  end
-
-  validations do
-    validate match(:username, "^[0-9a-z-_ ]+$")
   end
 
   validations do
@@ -324,6 +358,8 @@ defmodule Orangerie.Accounts.User do
     attribute :slug, :ci_string do
       allow_nil? false
     end
+
+    attribute :type, Orangerie.Accounts.Types.Type
   end
 
   identities do
