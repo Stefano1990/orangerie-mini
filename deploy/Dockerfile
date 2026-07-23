@@ -1,6 +1,8 @@
 # Builds an x86_64 Linux release and exports it as a tarball.
 # Usage: docker build --platform linux/amd64 -f deploy/Dockerfile -o deploy/_out .
-FROM hexpm/elixir:1.19.5-erlang-28.5.0.3-debian-bookworm-20260623-slim AS build
+# Base must match the target server (Ubuntu 24.04, OpenSSL 3.0.13): the release
+# ships Erlang's crypto NIF, which links against the build image's libcrypto.
+FROM hexpm/elixir:1.20.2-erlang-29.0.3-ubuntu-noble-20260610 AS build
 
 RUN apt-get update -y && apt-get install -y build-essential git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*

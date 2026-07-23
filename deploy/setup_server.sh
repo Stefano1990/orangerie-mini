@@ -27,6 +27,7 @@ PHX_HOST=stage2.orangerie.eu
 PORT=4000
 DATABASE_URL=ecto://orangerie:${POSTGRES_PASSWORD}@127.0.0.1/orangerie
 SECRET_KEY_BASE=$(openssl rand -base64 64 | tr -d '\n')
+TOKEN_SIGNING_SECRET=$(openssl rand -base64 64 | tr -d '\n')
 ENV
   chmod 600 orangerie.env
 fi
